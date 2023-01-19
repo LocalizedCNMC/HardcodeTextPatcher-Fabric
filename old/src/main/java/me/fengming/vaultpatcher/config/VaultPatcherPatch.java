@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import me.fengming.vaultpatcher.VaultPatcher;
-import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.server.Bootstrap;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +18,7 @@ public class VaultPatcherPatch {
 
     public VaultPatcherPatch(String patchFile) {
         VaultPatcher.LOGGER.info("Load Module " + patchFile);
-        Path p = VaultPatcher.configPath.resolve(patchFile);
+        Path p = FMLPaths.CONFIGDIR.get().resolve("vaultpatcher").resolve(patchFile);
         try {
             Files.createDirectories(p.getParent());
         } catch (IOException e) {
@@ -112,8 +114,8 @@ public class VaultPatcherPatch {
     private String patchText(String value, String key, String text) {
         if (isSemimatch && !value.startsWith("@@")) {
             value = value.replace("@@", "@").substring(1);
-            return text.replace(key, I18n.translate(value));
-        } else return I18n.translate(value);
+            return text.replace(key, I18n.get(value));
+        } else return I18n.get(value);
     }
 
 

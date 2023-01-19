@@ -1,34 +1,31 @@
 package me.fengming.vaultpatcher;
 
 import com.mojang.logging.LogUtils;
-import me.fengming.vaultpatcher.command.CommandEventHandler;
 import me.fengming.vaultpatcher.config.VaultPatcherConfig;
 import me.fengming.vaultpatcher.config.VaultPatcherPatch;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.Bootstrap;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VaultPatcher implements ModInitializer {
-    public static final String MODID = "vaultpatcher";
-    public static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("HardcodePatcher");
+@Mod(Utils.MOD_ID)
+public class VaultPatcher {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static ArrayList<String> exportList = new ArrayList<>();
     public static List<VaultPatcherPatch> vpps = new ArrayList<>();
 
-    @Override
-    public void onInitialize() {
-        CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
-    }
-
-    //@Mod.EventBusSubscriber(modid = Utils.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = Utils.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static final class Events {
-        //@SubscribeEvent(priority = EventPriority.LOWEST)
+        @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void loadConfig(FMLConstructModEvent event) {
             event.enqueueWork(() -> {
                 try {

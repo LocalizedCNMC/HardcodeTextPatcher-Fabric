@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import me.fengming.vaultpatcher.VaultPatcher;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,7 +14,7 @@ import java.util.*;
 
 public class VaultPatcherConfig {
     private static final Gson GSON = new Gson();
-    private static final Path configFile = VaultPatcher.configPath.resolve("config.json");
+    private static final Path configFile = FMLPaths.CONFIGDIR.get().resolve("vaultpatcher").resolve("config.json");
     private static List<String> mods = new ArrayList<>();
     private static DebugMode debug = new DebugMode();
 

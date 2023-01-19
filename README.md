@@ -1,6 +1,8 @@
-# Vault Patcher ~~（Vanilla Hardcoded Breaker）~~
+# HardcodeText Patcher(WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
 
 语言：**[简体中文](README.md)丨[English](README_en_us.md)**
+
+Vault Patcher 的非官方 Fabric 移植版（WIP）。
 
 ### 硬编码 -> 本地化
 
@@ -11,7 +13,7 @@
 ## 配置
 
 在1.2.5以后，配置文件均采用模块的形式
-在`config/vaultpatcher/`下的格式为`config.json`和若干个`模块.json`。
+在`config/HardcodePatcher/`下的格式为`config.json`和若干个`模块.json`。
 
 `config.json`是必须的。 
 如下：
@@ -56,7 +58,7 @@
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": -1
     },
     "key": "I'm key",
@@ -65,7 +67,7 @@
   {
     "target_class": {
       "name": "me.modid.item.relics",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 3
     },
     "key": "Dragon Relic",
@@ -74,7 +76,7 @@
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Talents",
@@ -106,7 +108,7 @@
 {
   "target_class": {
     "name": "",
-    "mapping": "SRG",
+    "mapping": "Intermediaty",
     "stack_depth": -1
   },
   "key": "I'm key",
@@ -154,7 +156,7 @@
 {
   "target_class": {
     "name": "",
-    "mapping": "SRG",
+    "mapping": "Intermediaty",
     "stack_depth": 0
   },
   "key": "Copyright Mojang AB. Do not distribute!",
@@ -175,7 +177,7 @@
 {
   "target_class": {
     "name": "",
-    "mapping": "SRG",
+    "mapping": "Intermediaty",
     "stack_depth": -1
   },
   "key": "Copyright Mojang AB. Do not distribute!",
@@ -298,10 +300,12 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
 
 ## 其他
 
-#### 主作者：FengMing([github](https://github.com/3093FengMing))
+#### Fabric移植版作者：TexTrue
+
+#### 原模组作者：FengMing([github](https://github.com/3093FengMing))
 
 #### 配置部分：teddyxlandlee([github](https://github.com/teddyxlandlee))
 
 #### 想法：yiqv([github](https://github.com/yiqv))
 
-#### Mod地址：[github](https://github.com/3093FengMing/VaultPatcher)，[mcmod](https://www.mcmod.cn/class/8765.html)，[bilibili](等)
+#### Mod地址：[github](https://github.com/3093FengMing/VaultPatcher)

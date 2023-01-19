@@ -1,29 +1,22 @@
 package me.fengming.vaultpatcher.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import me.fengming.vaultpatcher.Utils;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.Commands;
-import net.minecraftforge.client.event.RegisterClientCommandsEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import me.fengming.vaultpatcher.VaultPatcher;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 
-@Mod.EventBusSubscriber(modid = Utils.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommandEventHandler {
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void registerClientCommands(RegisterClientCommandsEvent event) {
-        CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
+    public static void registerClientCommands(CommandDispatcher<ServerCommandSource> dispatcher, Boolean dedicated) {
         dispatcher.register(
-                Commands.literal(Utils.MOD_ID
+                CommandManager.literal(VaultPatcher.MODID
                 ).then(
-                        Commands.literal("export")
+                        CommandManager.literal("export")
                                 .executes(ExportCommand.instance)
                 ).then(
-                        Commands.literal("list")
+                        CommandManager.literal("list")
                                 .executes(ListCommand.instance)
                 ).then(
-                        Commands.literal("reload")
+                        CommandManager.literal("reload")
                                 .executes(ReloadCommand.instance)
                 )
         );
