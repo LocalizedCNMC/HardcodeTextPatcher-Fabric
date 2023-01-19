@@ -24,11 +24,28 @@ public class VaultPatcher implements ModInitializer {
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
-    }
 
-    //@Mod.EventBusSubscriber(modid = Utils.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+        try {
+            VaultPatcherConfig.readConfig();
+            List<String> mods = VaultPatcherConfig.getMods();
+            for (String mod : mods) {
+                VaultPatcherPatch vpp = new VaultPatcherPatch(mod + ".json");
+                try {
+                    vpp.readConfig();
+                    vpps.add(vpp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Failed to load config: ", e);
+            throw new RuntimeException(e);
+        }
+    }
+/*
+    @Mod.EventBusSubscriber(modid = Utils.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static final class Events {
-        //@SubscribeEvent(priority = EventPriority.LOWEST)
+        @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void loadConfig(FMLConstructModEvent event) {
             event.enqueueWork(() -> {
                 try {
@@ -50,4 +67,5 @@ public class VaultPatcher implements ModInitializer {
             });
         }
     }
+ */
 }
