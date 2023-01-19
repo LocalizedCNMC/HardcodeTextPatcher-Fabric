@@ -3,8 +3,8 @@
   "priority": 2147483647,
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.6",
-  "package": "me.fengming.vaultpatcher.mixin",
-  "refmap": "mixins.vaultpatcher.refmap.json",
+  "package": "org.localmc.tools.hardcodepatcher.mixin",
+  "refmap": "hardcodepatcher.mixins.refmap.json",
   "mixins": [
     "LiteralTextMixin",
     "BaseTextMixin",

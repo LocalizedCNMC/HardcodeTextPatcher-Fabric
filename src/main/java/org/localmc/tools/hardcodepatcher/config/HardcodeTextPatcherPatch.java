@@ -1,9 +1,9 @@
-package me.fengming.vaultpatcher.config;
+package org.localmc.tools.hardcodepatcher.config;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import me.fengming.vaultpatcher.VaultPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
 import net.minecraft.client.resource.language.I18n;
 
 import java.io.IOException;
@@ -11,16 +11,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class VaultPatcherPatch {
+public class HardcodeTextPatcherPatch {
     private static final Gson GSON = new Gson();
 
-    public VaultPatcherPatch(String patchFile) {
-        VaultPatcher.LOGGER.info("Load Module " + patchFile);
-        Path p = VaultPatcher.configPath.resolve(patchFile);
+    public HardcodeTextPatcherPatch(String patchFile) {
+        HardcodeTextPatcher.LOGGER.info("Load Module " + patchFile);
+        Path p = HardcodeTextPatcher.configPath.resolve(patchFile);
         try {
             Files.createDirectories(p.getParent());
         } catch (IOException e) {
-            VaultPatcher.LOGGER.error("Failed to create {}", p.getParent(), e);
+            HardcodeTextPatcher.LOGGER.error("Failed to create {}", p.getParent(), e);
             throw new RuntimeException(e);
         }
         this.patchFile = p;
@@ -119,7 +119,7 @@ public class VaultPatcherPatch {
 
     @Override
     public String toString() {
-        return "VaultPatcherPatch{" +
+        return "HardcodeTextPatcherPatch{" +
                 "patchFile=" + patchFile +
                 ", map=" + map +
                 ", info=" + info +

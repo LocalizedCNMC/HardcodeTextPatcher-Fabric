@@ -2,8 +2,7 @@
   "schemaVersion": 1,
   "id": "hardcodepatcher",
   "version": "${version}",
-
-  "name": "HardcodeText Patcher",
+  "name": "HardcodeTextPatcher",
   "description": "Fixed the hard coded local string problem in some mods.",
   "authors": [
     "FengMing, teddyxlandlee"
@@ -19,7 +18,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.fengming.vaultpatcher.VaultPatcher"
+      "org.localmc.tools.hardcodepatcher.HardcodeTextPatcher"
     ]
   },
   "mixins": [

@@ -1,9 +1,9 @@
-package me.fengming.vaultpatcher;
+package org.localmc.tools.hardcodepatcher;
 
 import com.mojang.logging.LogUtils;
-import me.fengming.vaultpatcher.command.CommandEventHandler;
-import me.fengming.vaultpatcher.config.VaultPatcherConfig;
-import me.fengming.vaultpatcher.config.VaultPatcherPatch;
+import org.localmc.tools.hardcodepatcher.command.CommandEventHandler;
+import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherConfig;
+import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherPatch;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -14,22 +14,23 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VaultPatcher implements ModInitializer {
-    public static final String MODID = "vaultpatcher";
+public class HardcodeTextPatcher implements ModInitializer {
+    public static final String MODID = "hardcodepatcher";
+    public static final String patchFileName = "localpatcher.json";
     public static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("HardcodePatcher");
     public static final Logger LOGGER = LogUtils.getLogger();
     public static ArrayList<String> exportList = new ArrayList<>();
-    public static List<VaultPatcherPatch> vpps = new ArrayList<>();
+    public static List<HardcodeTextPatcherPatch> vpps = new ArrayList<>();
 
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
 
         try {
-            VaultPatcherConfig.readConfig();
-            List<String> mods = VaultPatcherConfig.getMods();
+            HardcodeTextPatcherConfig.readConfig();
+            List<String> mods = HardcodeTextPatcherConfig.getMods();
             for (String mod : mods) {
-                VaultPatcherPatch vpp = new VaultPatcherPatch(mod + ".json");
+                HardcodeTextPatcherPatch vpp = new HardcodeTextPatcherPatch(mod + ".json");
                 try {
                     vpp.readConfig();
                     vpps.add(vpp);
@@ -49,10 +50,10 @@ public class VaultPatcher implements ModInitializer {
         public static void loadConfig(FMLConstructModEvent event) {
             event.enqueueWork(() -> {
                 try {
-                    VaultPatcherConfig.readConfig();
-                    List<String> mods = VaultPatcherConfig.getMods();
+                    HardcodeTextPatcherConfig.readConfig();
+                    List<String> mods = HardcodeTextPatcherConfig.getMods();
                     for (String mod : mods) {
-                        VaultPatcherPatch vpp = new VaultPatcherPatch(mod + ".json");
+                        HardcodeTextPatcherPatch vpp = new HardcodeTextPatcherPatch(mod + ".json");
                         try {
                             vpp.readConfig();
                             vpps.add(vpp);

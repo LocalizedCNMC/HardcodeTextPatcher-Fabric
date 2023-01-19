@@ -1,6 +1,6 @@
-package me.fengming.vaultpatcher.mixin;
+package org.localmc.tools.hardcodepatcher.mixin;
 
-import me.fengming.vaultpatcher.ThePatcher;
+import org.localmc.tools.hardcodepatcher.ThePatcher;
 import net.minecraft.text.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

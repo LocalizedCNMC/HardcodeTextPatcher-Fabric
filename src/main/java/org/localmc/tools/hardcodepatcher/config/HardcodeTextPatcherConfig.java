@@ -1,20 +1,20 @@
-package me.fengming.vaultpatcher.config;
+package org.localmc.tools.hardcodepatcher.config;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import me.fengming.vaultpatcher.VaultPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class VaultPatcherConfig {
+public class HardcodeTextPatcherConfig {
     private static final Gson GSON = new Gson();
-    private static final Path configFile = VaultPatcher.configPath.resolve("config.json");
+    private static final Path configFile = HardcodeTextPatcher.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();
     private static DebugMode debug = new DebugMode();
 

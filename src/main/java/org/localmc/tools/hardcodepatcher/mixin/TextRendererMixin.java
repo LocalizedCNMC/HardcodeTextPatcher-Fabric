@@ -1,6 +1,6 @@
-package me.fengming.vaultpatcher.mixin;
+package org.localmc.tools.hardcodepatcher.mixin;
 
-import me.fengming.vaultpatcher.ThePatcher;
+import org.localmc.tools.hardcodepatcher.ThePatcher;
 import net.minecraft.client.font.TextRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.Objects;
 //import java.util.Optional;
 
-//import static me.fengming.vaultpatcher.VaultPatcher.exportList;
+//import static org.localmc.tools.hardcodepatcher.HardcodeTextPatcher.exportList;
 
 @Mixin(value = TextRenderer.class, priority = Integer.MAX_VALUE)
 public class TextRendererMixin {

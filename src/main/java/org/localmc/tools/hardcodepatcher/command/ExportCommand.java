@@ -1,10 +1,10 @@
-package me.fengming.vaultpatcher.command;
+package org.localmc.tools.hardcodepatcher.command;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
-import me.fengming.vaultpatcher.VaultPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
@@ -20,15 +20,15 @@ public class ExportCommand implements Command<ServerCommandSource> {
 
     @Override
     public int run(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.export.warning.wip"), true);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.warning.wip"), true);
         Gson gson = new Gson();
-        String json = gson.toJson(VaultPatcher.exportList, new TypeToken<ArrayList<String>>() {
+        String json = gson.toJson(HardcodeTextPatcher.exportList, new TypeToken<ArrayList<String>>() {
         }.getType());
         //Export langs
         try {
             BufferedWriter bw = new BufferedWriter(
                     new FileWriter(
-                            FabricLoader.getInstance().getGameDir().resolve("langpacther.json").toFile(),
+                            FabricLoader.getInstance().getGameDir().resolve(HardcodeTextPatcher.patchFileName).toFile(),
                             StandardCharsets.UTF_8));
             bw.write(json);
             bw.flush();
@@ -37,7 +37,7 @@ public class ExportCommand implements Command<ServerCommandSource> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.export.tips.success"), true);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.tips.success"), true);
         return 0;
     }
 }

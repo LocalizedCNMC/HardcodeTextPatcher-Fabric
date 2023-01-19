@@ -1,0 +1,6 @@
+{
+  "commands.hardcodepatcher.export.tips.success": "完成！导出到langpatcher.json",
+  "commands.hardcodepatcher.export.warning.wip": "警告：此功能仍是*WIP*！",
+  "commands.hardcodepatcher.list.warning.wip": "警告：此功能仍是*WIP*！",
+  "commands.hardcodepatcher.list.tips.modslist": "以下为已加载的模块列表："
+}

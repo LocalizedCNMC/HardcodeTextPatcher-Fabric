@@ -1,4 +1,4 @@
-package me.fengming.vaultpatcher.config;
+package org.localmc.tools.hardcodepatcher.config;
 
 import com.google.common.base.Preconditions;
 import com.google.gson.stream.JsonReader;

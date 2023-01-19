@@ -1,4 +1,4 @@
-package me.fengming.vaultpatcher.command;
+package org.localmc.tools.hardcodepatcher.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -11,7 +11,7 @@ public class ReloadCommand implements Command<ServerCommandSource> {
 
     @Override
     public int run(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.list.warning.wip"), false);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.list.warning.wip"), false);
         MinecraftClient.getInstance().reloadResources();
         return 0;
     }
