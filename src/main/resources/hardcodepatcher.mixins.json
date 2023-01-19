@@ -1,0 +1,19 @@
+{
+  "mixinPriority": -2147483647,
+  "priority": -2147483647,
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.6",
+  "package": "org.localmc.tools.hardcodepatcher.mixin",
+  "refmap": "hardcodepatcher.mixins.refmap.json",
+  "mixins": [
+    "TextRendererMixin",
+    "LiteralTextMixin"
+  ],
+  "client": [
+    "TextRendererMixin",
+    "LiteralTextMixin"
+  ],
+  "server": [
+    "LiteralTextMixin"
+  ]
+}
