@@ -1,6 +1,8 @@
-# Vault Patcher ~~（Vanilla Hardcoded Breaker）~~
+# HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
 
-**Language：[简体中文](README.md)丨[English](README_en_us.md)**
+**Language：[简体中文](README.md) / [English](README_en_us.md)**
+
+An unofficial Fabric Port of Vault Patcher (WIP).
 
 ### Hardcoded -> Localization
 
@@ -10,7 +12,7 @@
 
 ## Modular
 
-the format in `config/vaultpatcher/` directory like is `config.json` and several `module.json`.
+the format in `config/HardcodePatcher/` directory like is `config.json` and several `module.json`.
 
 `config.json` must be provided.
 It is as follows:
@@ -59,7 +61,7 @@ The format of the Module File is roughly as follows:
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": -1
     },
     "key": "I'm key",
@@ -77,7 +79,7 @@ The format of the Module File is roughly as follows:
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Talents",
@@ -109,7 +111,7 @@ Where
 {
   "target_class": {
     "name": "",
-    "mapping": "SRG",
+    "mapping": "Intermediaty",
     "stack_depth": -1
   },
   "key": "I'm key",
@@ -135,7 +137,6 @@ So if you want to change `Copyright Mojang AB. Do not distribute!` to `Mojang AB
 you can type `"value":"Mojang AB."`.
 
 #### Semi-match
-#### (1.2.5+)
 
 All of the above methods are full match (that is, full replace), and only replace the same text as `key`.
 
@@ -162,17 +163,13 @@ If there is no mistake, it should be as follows:
 }
 ```
 
-~~However, this is not enough,
-you must add `target_class`~~.
-(1.2.4 and above are no longer required)
-
 For Example:
 
 ```json
 {
   "target_class": {
     "name": "",
-    "mapping": "SRG",
+    "mapping": "Intermediaty",
     "stack_depth": -1
   },
   "key": "Copyright Mojang AB. Do not distribute!",
@@ -202,23 +199,23 @@ The matching rules of `name` are as follows:
 #### Class Match
 
 * The string starts with `#`, will be regarded as Class Match (For Example: `#TitleScreen` will
-  match `net.minecraft.client.gui.screens.TitleScreen` 
-  and `net.minecraft.client.gui.screens.titlescreen`.
-  but will not match `net.minecraft.client.gui.titlescreen.screens`)
+  match `net.minecraft.client.gui.screen.TitleScreen` 
+  and `net.minecraft.client.gui.screen.titlescreen`.
+  but will not match `net.minecraft.client.gui.titlescreen.screen`)
 
 #### Package Match
 
 * The string starts with `@`, will be regarded as Package Match (For Example: `#net.minecraft.client` will
-  match `net.minecraft.client.gui.screens.TitleScreen`
-  and `net.minecraft.client.gui.screens.BeaconScreen`.
-  Also match `net.minecraft.client.gui.titlescreen.screens`)
+  match `net.minecraft.client.gui.screen.TitleScreen`
+  and `net.minecraft.client.gui.screen.DeathScreen`.
+  Also match `net.minecraft.client.gui.titlescreen.screen`)
 
 #### Full Match
 
 * The string does not start with `#` or `@`, will be considered as a full match (For
-  Example: `net.minecraft.client.gui.screens.TitleScreen` will match `net.minecraft.client.gui.screens.TitleScreen`
-  and `net.minecraft.client.gui.screens.titlescreen`
-  but will not match `net.minecraft.client.gui.titlescreen.screens`)
+  Example: `net.minecraft.client.gui.screen.TitleScreen` will match `net.minecraft.client.gui.screen.TitleScreen`
+  and `net.minecraft.client.gui.screen.titlescreen`
+  but will not match `net.minecraft.client.gui.titlescreen.screen`)
 
 ### Mapping
 
@@ -231,13 +228,12 @@ For example:
 
 ```
 java.base/java.lang.Thread.getStackTrace(Thread.java:1610), 
-TRANSFORMER/minecraft@1.18.2/net.minecraft.network.chat.TextComponent.handler$zza000$proxy_init(TextComponent.java:531),
-TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleScreen.java:3),
+TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screen.TitleScreen(TitleScreen.java:3),
 ...
 ```
 
 In the example.
-`stack_depth` of `net.minecraft.client.gui.screens.TitleScreen` is 2.
+`stack_depth` of `net.minecraft.client.gui.screen.TitleScreen` is 2.
 The size of `stack_depth` depends on the position of the stack to be located in the array,
 Use `stack_depth`, `name` cannot be fuzzy match.
 
@@ -246,8 +242,8 @@ For Example：
 ```json
 {
   "target_class": {
-    "name": "net.minecraft.client.gui.screens.TitleScreen",
-    "mapping": "SRG",
+    "name": "net.minecraft.client.gui.screen.TitleScreen",
+    "mapping": "Intermediaty",
     "stack_depth": 2
   },
   "key": "Copyright Mojang AB. Do not distribute!",
@@ -255,7 +251,7 @@ For Example：
 }
 ```
 
-Now, you can accurately locate the class `net.minecraft.client.gui.screens.TitleScreen`.
+Now, you can accurately locate the class `net.minecraft.client.gui.screen.TitleScreen`.
 
 ### Sample Config
 
@@ -266,7 +262,7 @@ Now, you can accurately locate the class `net.minecraft.client.gui.screens.Title
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Attack Damage",
@@ -275,7 +271,7 @@ Now, you can accurately locate the class `net.minecraft.client.gui.screens.Title
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Dragon Relic",
@@ -284,7 +280,7 @@ Now, you can accurately locate the class `net.minecraft.client.gui.screens.Title
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Talents",
@@ -297,10 +293,14 @@ If you look carefully, you will find that `target_class` key is rarely used in c
 
 ## Others
 
-#### Author：FengMing([github](https://github.com/3093FengMing))
+#### Author of the Fabric port: TexTrue
 
-#### Configuration Author：teddyxlandlee([github](https://github.com/teddyxlandlee))
+#### Original development team:
 
-#### Idea：yiqv([github](https://github.com/yiqv))
+- Original Author：[FengMing](https://github.com/3093FengMing)
 
-#### Mod Link：[github](https://github.com/3093FengMing/VaultPatcher)，[mcmod](https://www.mcmod.cn/class/8765.html)，[bilibili](.)
+- Configuration Author：[teddyxlandlee](https://github.com/teddyxlandlee)
+
+- Idea：[yiqv](https://github.com/yiqv)
+
+#### Original Mod Link：[github](https://github.com/3093FengMing/VaultPatcher)

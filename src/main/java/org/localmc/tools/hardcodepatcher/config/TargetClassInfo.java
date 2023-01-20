@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class TargetClassInfo {
     private String name = "";
-    private String mapping = "SRG";
+    private String mapping = "Intermediaty";
     private int stackDepth = -1;
 
     public void readJson(JsonReader reader) throws IOException {
@@ -50,7 +50,7 @@ public class TargetClassInfo {
 
     public void setMapping(String mapping) {
         // Compatibility
-        Preconditions.checkArgument("SRG".equalsIgnoreCase(mapping));
+        Preconditions.checkArgument("Intermediaty".equalsIgnoreCase(mapping));
         this.mapping = mapping;
     }
 

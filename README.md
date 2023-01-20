@@ -1,18 +1,17 @@
-# HardcodeText Patcher(WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
+# HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
 
-语言：**[简体中文](README.md)丨[English](README_en_us.md)**
+语言：**[简体中文](README.md) / [English](README_en_us.md)**
 
 Vault Patcher 的非官方 Fabric 移植版（WIP）。
 
 ### 硬编码 -> 本地化
 
-### Let the hard coded strings change into localization strings in some mods.
+### 让一些mod中硬编码的字符串变为可以本地化的字符串。
 
 # 配置文件
 
 ## 配置
 
-在1.2.5以后，配置文件均采用模块的形式
 在`config/HardcodePatcher/`下的格式为`config.json`和若干个`模块.json`。
 
 `config.json`是必须的。 
@@ -205,21 +204,21 @@ Vault Patcher 的非官方 Fabric 移植版（WIP）。
 
 #### 类匹配
 
-* 以`#`开头的字符串会视为类匹配（示例：`#TitleScreen`会匹配`net.minecraft.client.gui.screens.TitleScreen`
-  和`net.minecraft.client.gui.screens.titlescreen`
-  但不匹配`net.minecraft.client.gui.titlescreen.screens`）
+* 以`#`开头的字符串会视为类匹配（示例：`#TitleScreen`会匹配`net.minecraft.client.gui.screen.TitleScreen`
+  和`net.minecraft.client.gui.screen.titlescreen`
+  但不匹配`net.minecraft.client.gui.titlescreen.screen`）
 
 #### 包匹配
 
-* 以`@`开头的字符串会视为包匹配（示例：`#net.minecraft.client`会匹配`net.minecraft.client.gui.screens.TitleScreen`
-  和`net.minecraft.client.gui.screens.BeaconScreen`等等
-  也匹配`net.minecraft.client.gui.titlescreen.screens`）
+* 以`@`开头的字符串会视为包匹配（示例：`#net.minecraft.client`会匹配`net.minecraft.client.gui.screen.TitleScreen`
+  和`net.minecraft.client.gui.screen.DeathScreen`等等
+  也匹配`net.minecraft.client.gui.titlescreen.screen`）
 
 #### 完全匹配
 
-* 不以`#`或`@`开头的字符串会视为全匹配（示例：`net.minecraft.client.gui.screens.TitleScreen`会匹配`net.minecraft.client.gui.screens.TitleScreen`
-  和`net.minecraft.client.gui.screens.titlescreen`
-  但不匹配`net.minecraft.client.gui.titlescreen.screens`）
+* 不以`#`或`@`开头的字符串会视为全匹配（示例：`net.minecraft.client.gui.screen.TitleScreen`会匹配`net.minecraft.client.gui.screen.TitleScreen`
+  和`net.minecraft.client.gui.screen.titlescreen`
+  但不匹配`net.minecraft.client.gui.titlescreen.screen`）
 
 ### 映射（mapping）
 
@@ -235,12 +234,11 @@ Vault Patcher 的非官方 Fabric 移植版（WIP）。
 
 ```
 java.base/java.lang.Thread.getStackTrace(Thread.java:1610), 
-TRANSFORMER/minecraft@1.18.2/net.minecraft.network.chat.TextComponent.handler$zza000$proxy_init(TextComponent.java:531),
-TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleScreen.java:3),
+TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screen.TitleScreen(TitleScreen.java:3),
 ...
 ```
 
-`net.minecraft.client.gui.screens.TitleScreen`的`stack_depth`就是2。
+`net.minecraft.client.gui.screen.TitleScreen`的`stack_depth`就是2。
 `stack_depth`的大小取决于要定位的堆栈所处的位置，
 使用`stack_depth`时，`name`不能为模糊匹配。
 
@@ -249,8 +247,8 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
 ```json
 {
   "target_class": {
-    "name": "net.minecraft.client.gui.screens.TitleScreen",
-    "mapping": "SRG",
+    "name": "net.minecraft.client.gui.screen.TitleScreen",
+    "mapping": "Intermediaty",
     "stack_depth": 2
   },
   "key": "Copyright Mojang AB. Do not distribute!",
@@ -258,7 +256,7 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
 }
 ```
 
-此时便能精准的定位到`net.minecraft.client.gui.screens.TitleScreen`这个类。
+此时便能精准的定位到`net.minecraft.client.gui.screen.TitleScreen`这个类。
 
 ### 参考配置
 
@@ -269,7 +267,7 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Attack Damage",
@@ -278,7 +276,7 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Dragon Relic",
@@ -287,7 +285,7 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
   {
     "target_class": {
       "name": "",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 0
     },
     "key": "Talents",
@@ -302,10 +300,12 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screens.TitleScreen(TitleS
 
 #### Fabric移植版作者：TexTrue
 
-#### 原模组作者：FengMing([github](https://github.com/3093FengMing))
+#### 原开发团队：
 
-#### 配置部分：teddyxlandlee([github](https://github.com/teddyxlandlee))
+- 作者：[FengMing](https://github.com/3093FengMing)
 
-#### 想法：yiqv([github](https://github.com/yiqv))
+- 配置部分：[teddyxlandlee](https://github.com/teddyxlandlee)
 
-#### Mod地址：[github](https://github.com/3093FengMing/VaultPatcher)
+- 想法：[yiqv](https://github.com/yiqv)
+
+#### 原Mod地址：[github](https://github.com/3093FengMing/VaultPatcher)
