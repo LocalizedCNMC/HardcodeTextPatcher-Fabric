@@ -10,17 +10,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = LiteralText.class, priority = -Integer.MAX_VALUE)
 public abstract class LiteralTextMixin {
-    @Accessor("text")
-    abstract String getText1();
+    @Accessor("string")
+    abstract String getString1();
 
     @Inject(method = "asString", at = @At("HEAD"), cancellable = true)
     private void proxy_asString(CallbackInfoReturnable<String> cir) {
-        String c = ThePatcher.patch(this.getText1());
+        String c = ThePatcher.patch(this.getString1());
         if (c != null) cir.setReturnValue(c);
     }
     @Inject(method = "getRawString", at = @At("HEAD"), cancellable = true)
     private void proxy_getRawString(CallbackInfoReturnable<String> cir) {
-        String c = ThePatcher.patch(this.getText1());
+        String c = ThePatcher.patch(this.getString1());
         if (c != null) cir.setReturnValue(c);
     }
 
