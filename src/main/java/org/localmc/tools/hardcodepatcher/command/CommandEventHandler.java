@@ -17,7 +17,6 @@ public class CommandEventHandler {
                                 .executes(ListCommand.instance)
                 ).then(
                         CommandManager.literal("reload")
-                                .requires((commandSource) -> commandSource.hasPermissionLevel(2))
                                 .executes(ReloadCommand.instance)
                 )
         );

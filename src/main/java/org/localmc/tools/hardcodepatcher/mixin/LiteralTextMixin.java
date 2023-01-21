@@ -18,12 +18,11 @@ public abstract class LiteralTextMixin {
         String c = ThePatcher.patch(this.getString1());
         if (c != null) cir.setReturnValue(c);
     }
+
     @Inject(method = "getRawString", at = @At("HEAD"), cancellable = true)
     private void proxy_getRawString(CallbackInfoReturnable<String> cir) {
         String c = ThePatcher.patch(this.getString1());
         if (c != null) cir.setReturnValue(c);
     }
-
-
 }
 

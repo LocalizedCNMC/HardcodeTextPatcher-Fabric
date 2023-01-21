@@ -7,13 +7,16 @@
   "refmap": "hardcodepatcher.mixins.refmap.json",
   "mixins": [
     "TextRendererMixin",
-    "LiteralTextMixin"
+    "LiteralTextMixin",
+    "BaseTextMixin"
   ],
   "client": [
     "TextRendererMixin",
-    "LiteralTextMixin"
+    "LiteralTextMixin",
+    "BaseTextMixin"
   ],
   "server": [
-    "LiteralTextMixin"
+    "LiteralTextMixin",
+    "BaseTextMixin"
   ]
 }

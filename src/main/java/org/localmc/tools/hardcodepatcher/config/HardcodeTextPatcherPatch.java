@@ -6,15 +6,24 @@ import com.google.gson.stream.JsonToken;
 import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
 import net.minecraft.client.resource.language.I18n;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
 public class HardcodeTextPatcherPatch {
     private static final Gson GSON = new Gson();
+    private static boolean isSemimatch = false;
+    private final Path patchFile;
+
+    private Map<String, List<TranslationInfo>> map = new HashMap<>();
+
+    private PatchInfo info = new PatchInfo();
 
     public HardcodeTextPatcherPatch(String patchFile) {
+        HardcodeTextPatcher.LOGGER.info("Load Module " + patchFile);
         Path p = HardcodeTextPatcher.configPath.resolve(patchFile);
         try {
             Files.createDirectories(p.getParent());
@@ -24,12 +33,6 @@ public class HardcodeTextPatcherPatch {
         }
         this.patchFile = p;
     }
-
-    private final Path patchFile;
-
-    private Map<String, List<TranslationInfo>> map = new HashMap<>();
-
-    private PatchInfo info = new PatchInfo();
 
     private static <K, T> void addEntry(Map<K, List<T>> p, K key, T val) {
         p.computeIfAbsent(key, k -> new ArrayList<>()).add(val);
@@ -55,9 +58,9 @@ public class HardcodeTextPatcherPatch {
 
     public void readConfig() throws IOException {
         if (Files.notExists(patchFile)) {
-            throw new IOException("File is not exists.");
+            Files.createFile(patchFile);
         }
-        try (JsonReader jsonReader = GSON.newJsonReader(Files.newBufferedReader(patchFile))) {
+        try (JsonReader jsonReader = GSON.newJsonReader(new InputStreamReader(new FileInputStream(patchFile.toFile())))) {
             readConfig(jsonReader);
         }
     }
@@ -77,7 +80,10 @@ public class HardcodeTextPatcherPatch {
         if ((list = getList(text)) == null) return null;
 
         for (TranslationInfo info : list) {
-            if (info.getValue() == null || info.getKey() == null) continue;
+            isSemimatch = info.getValue().startsWith("@");
+            if (!isSemimatch && !text.equals(info.getKey())) continue;
+            if (info.getValue() == null || info.getKey() == null || info.getKey().isEmpty() || info.getValue().isEmpty())
+                continue;
             final TargetClassInfo targetClassInfo = info.getTargetClassInfo();
             if (targetClassInfo.getName().isEmpty() || targetClassInfo.getStackDepth() <= 0 || matchStack(targetClassInfo.getName(), stackTrace)) {
                 return patchText(info.getValue(), info.getKey(), text);
@@ -92,9 +98,10 @@ public class HardcodeTextPatcherPatch {
         return null;
     }
 
-    private boolean matchStack(String str, StackTraceElement[] stackTrace) {
+    private boolean matchStack(String str, StackTraceElement[] stack) {
         String s = str.toLowerCase();
-        for (StackTraceElement ste : stackTrace) {
+        stack = Arrays.copyOfRange(stack, 7, 13);
+        for (StackTraceElement ste : stack) {
             if (s.startsWith("#")) {
                 return ste.getClassName().endsWith(s);
             } else if (s.startsWith("@")) {
@@ -105,32 +112,10 @@ public class HardcodeTextPatcherPatch {
     }
 
     private String patchText(String value, String key, String text) {
-        char[] charList = {};
-        List<Integer> numList = null;
-        if (value.charAt(0) != '@' || value.contains("%d")) {
-            if (value.length() == text.length()) {
-                text.getChars(0, text.length(), charList, 0);
-                numList = getNumbers(charList);
-            }
-        }
-
-        if (value.startsWith("@") && !value.startsWith("@@")) {
+        if (isSemimatch && !value.startsWith("@@")) {
             value = value.replace("@@", "@").substring(1);
             return text.replace(key, I18n.translate(value));
-        } else return I18n.translate(value, numList);
-    }
-
-    private List<Integer> getNumbers(char[] str) {
-        List<Integer> rList = new ArrayList<>();
-        StringBuilder tmp = new StringBuilder();
-        for (char c : str) {
-            if (c >= '0' && c <= '9') {
-                tmp.append(c);
-            } else {
-                rList.add(Integer.valueOf(tmp.toString()));
-            }
-        }
-        return rList;
+        } else return I18n.translate(value);
     }
 
     @Override

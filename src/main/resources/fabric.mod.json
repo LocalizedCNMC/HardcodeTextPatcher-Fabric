@@ -1,18 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "hardcodepatcher",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "HardcodeTextPatcher",
+  "description": "Fixed the hard coded local string problem in some mods.",
+  "credits": [
+    "FengMing, teddyxlandlee"
+  ],
   "authors": [
-    "Me!"
+    "TexTrue, LocalizedCNMC"
   ],
   "contact": {
-    "homepage": "https://github.com/LocalizedCNMC/VaultPatcher",
-    "sources": "https://github.com/LocalizedCNMC/VaultPatcher"
+    "homepage": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric",
+    "sources": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric"
   },
 
-  "license": "CC0-1.0",
+  "license": "GPLv3",
   "icon": "icon.png",
 
   "environment": "*",
@@ -29,8 +32,5 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.16.x"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

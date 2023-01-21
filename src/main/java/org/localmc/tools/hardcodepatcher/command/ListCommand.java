@@ -14,12 +14,14 @@ public class ListCommand implements Command<ServerCommandSource> {
 
     @Override
     public int run(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.list.warning.wip"), false);
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.list.tips.modslist"), false);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.list.warning.wip"), false);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.list.tips.modslist"), false);
         List<String> mods = HardcodeTextPatcherConfig.getMods();
+        StringBuilder str = new StringBuilder();
         for (String mod : mods) {
-            context.getSource().sendFeedback(new LiteralText("§a" + mod), false);
+            str.append("§a").append(mod).append(",");
         }
+        context.getSource().sendFeedback(new LiteralText(str.toString()), false);
         return 0;
     }
 }

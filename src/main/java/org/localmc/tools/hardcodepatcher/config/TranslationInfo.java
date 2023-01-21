@@ -18,22 +18,21 @@ public class TranslationInfo {
         reader.beginObject();
         while (reader.peek() != JsonToken.END_OBJECT) {
             switch (reader.nextName()) {
-                case "target_class" : getTargetClassInfo().readJson(reader); break;
-                case "key" : setKey(reader.nextString()); break;
-                case "value" : setValue(reader.nextString()); break;
-                default : reader.skipValue(); break;
+                case "target_class":
+                    getTargetClassInfo().readJson(reader);
+                    break;
+                case "key":
+                    setKey(reader.nextString());
+                    break;
+                case "value":
+                    setValue(reader.nextString());
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
             }
         }
         reader.endObject();
-    }
-
-    public void writeJson(JsonWriter writer) throws IOException {
-        writer.beginObject();
-        writer.name("target_class");
-        getTargetClassInfo().writeJson(writer);
-        writer.name("key").value(getKey());
-        writer.name("value").value(getValue());
-        writer.endObject();
     }
 
     public TargetClassInfo getTargetClassInfo() {

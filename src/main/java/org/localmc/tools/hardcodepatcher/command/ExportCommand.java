@@ -20,14 +20,14 @@ public class ExportCommand implements Command<ServerCommandSource> {
 
     @Override
     public int run(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.export.warning.wip"), true);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.warning.wip"), true);
         Gson gson = new Gson();
         String json = gson.toJson(HardcodeTextPatcher.exportList, new TypeToken<ArrayList<String>>() {
         }.getType());
         //Export langs
         try {
             BufferedWriter bw = new BufferedWriter(
-                    new FileWriter(FabricLoader.getInstance().getGameDir().resolve("langpacther.json").toFile()));
+                    new FileWriter(FabricLoader.getInstance().getGameDir().resolve(HardcodeTextPatcher.patchFileName).toFile()));
             bw.write(json);
             bw.flush();
 
@@ -35,7 +35,7 @@ public class ExportCommand implements Command<ServerCommandSource> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        context.getSource().sendFeedback(new TranslatableText("commands.vaultpatcher.export.tips.success"), true);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.tips.success"), true);
         return 0;
     }
 }
