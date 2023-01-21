@@ -43,30 +43,4 @@ public class HardcodeTextPatcher implements ModInitializer {
             throw new RuntimeException(e);
         }
     }
-/*
-    @Mod.EventBusSubscriber(modid = Utils.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static final class Events {
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void loadConfig(FMLConstructModEvent event) {
-            event.enqueueWork(() -> {
-                try {
-                    HardcodeTextPatcherConfig.readConfig();
-                    List<String> mods = HardcodeTextPatcherConfig.getMods();
-                    for (String mod : mods) {
-                        HardcodeTextPatcherPatch vpp = new HardcodeTextPatcherPatch(mod + ".json");
-                        try {
-                            vpp.readConfig();
-                            vpps.add(vpp);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (IOException e) {
-                    LOGGER.error("Failed to load config: ", e);
-                    throw new RuntimeException(e);
-                }
-            });
-        }
-    }
- */
 }
