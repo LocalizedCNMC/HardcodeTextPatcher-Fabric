@@ -6,13 +6,21 @@ import com.google.gson.stream.JsonToken;
 import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
 import net.minecraft.client.resource.language.I18n;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
 public class HardcodeTextPatcherPatch {
     private static final Gson GSON = new Gson();
+    private static boolean isSemimatch = false;
+    private final Path patchFile;
+
+    private Map<String, List<TranslationInfo>> map = new HashMap<>();
+
+    private PatchInfo info = new PatchInfo();
 
     public HardcodeTextPatcherPatch(String patchFile) {
         HardcodeTextPatcher.LOGGER.info("Load Module " + patchFile);
@@ -25,12 +33,6 @@ public class HardcodeTextPatcherPatch {
         }
         this.patchFile = p;
     }
-
-    private final Path patchFile;
-
-    private Map<String, List<TranslationInfo>> map = new HashMap<>();
-
-    private PatchInfo info = new PatchInfo();
 
     private static <K, T> void addEntry(Map<K, List<T>> p, K key, T val) {
         p.computeIfAbsent(key, k -> new ArrayList<>()).add(val);
@@ -58,7 +60,7 @@ public class HardcodeTextPatcherPatch {
         if (Files.notExists(patchFile)) {
             Files.createFile(patchFile);
         }
-        try (var jsonReader = GSON.newJsonReader(Files.newBufferedReader(patchFile))) {
+        try (var jsonReader = GSON.newJsonReader(new InputStreamReader(new FileInputStream(patchFile.toFile())))) {
             readConfig(jsonReader);
         }
     }
@@ -73,8 +75,6 @@ public class HardcodeTextPatcherPatch {
         return null;
     }
 
-    private static boolean isSemimatch = false;
-
     public String patch(String text, StackTraceElement[] stackTrace) {
         List<TranslationInfo> list;
         if ((list = getList(text)) == null) return null;
@@ -82,7 +82,8 @@ public class HardcodeTextPatcherPatch {
         for (TranslationInfo info : list) {
             isSemimatch = info.getValue().startsWith("@");
             if (!isSemimatch && !text.equals(info.getKey())) continue;
-            if (info.getValue() == null || info.getKey() == null || info.getKey().isEmpty() || info.getValue().isEmpty()) continue;
+            if (info.getValue() == null || info.getKey() == null || info.getKey().isEmpty() || info.getValue().isEmpty())
+                continue;
             final TargetClassInfo targetClassInfo = info.getTargetClassInfo();
             if (targetClassInfo.getName().isEmpty() || targetClassInfo.getStackDepth() <= 0 || matchStack(targetClassInfo.getName(), stackTrace)) {
                 return patchText(info.getValue(), info.getKey(), text);
@@ -97,9 +98,10 @@ public class HardcodeTextPatcherPatch {
         return null;
     }
 
-    private boolean matchStack(String str, StackTraceElement[] stackTrace) {
+    private boolean matchStack(String str, StackTraceElement[] stack) {
         String s = str.toLowerCase();
-        for (StackTraceElement ste : stackTrace) {
+        stack = Arrays.copyOfRange(stack, 7, 13);
+        for (StackTraceElement ste : stack) {
             if (s.startsWith("#")) {
                 return ste.getClassName().endsWith(s);
             } else if (s.startsWith("@")) {

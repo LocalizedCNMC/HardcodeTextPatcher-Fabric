@@ -6,14 +6,14 @@
   "package": "org.localmc.tools.hardcodepatcher.mixin",
   "refmap": "hardcodepatcher.mixins.refmap.json",
   "mixins": [
-    "LiteralTextMixin",
     "BaseTextMixin",
-    "TextRendererMixin"
+    "TextRendererMixin",
+    "LiteralTextMixin"
   ],
   "client": [
     "BaseTextMixin",
-    "LiteralTextMixin",
-    "TextRendererMixin"
+    "TextRendererMixin",
+    "LiteralTextMixin"
   ],
   "server": [
     "BaseTextMixin",

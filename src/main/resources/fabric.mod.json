@@ -8,13 +8,12 @@
     "FengMing, teddyxlandlee"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric",
+    "sources": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric"
   },
 
   "license": "GPLv3.0",
   "icon": "icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -30,8 +29,5 @@
     "fabric": "*",
     "minecraft": "1.18.x",
     "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

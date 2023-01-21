@@ -16,7 +16,7 @@ public class HardcodeTextPatcherConfig {
     private static final Gson GSON = new Gson();
     private static final Path configFile = HardcodeTextPatcher.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();
-    private static DebugMode debug = new DebugMode();
+    private static final DebugMode debug = new DebugMode();
 
     public static List<String> getMods() {
         return mods;
@@ -43,22 +43,25 @@ public class HardcodeTextPatcherConfig {
             writeConfig(jw);
         }
 
-        JsonReader jr = GSON.newJsonReader(Files.newBufferedReader(configFile));
+        JsonReader jr = GSON.newJsonReader(new InputStreamReader(new FileInputStream(f)));
 
         jr.beginObject();
         while (jr.peek() != JsonToken.END_OBJECT) {
             switch (jr.nextName()) {
-                case "debug_mode" :
+                case "debug_mode":
                     if (jr.peek() == JsonToken.BEGIN_OBJECT) {
                         debug.readJson(jr);
                     }
                     break;
-                case "mods" :
+                case "mods":
                     if (jr.peek() == JsonToken.BEGIN_ARRAY) {
-                        mods = GSON.fromJson(jr, new TypeToken<List<String>>() {}.getType());
+                        mods = GSON.fromJson(jr, new TypeToken<List<String>>() {
+                        }.getType());
                     }
                     break;
-                default : jr.skipValue(); break;
+                default:
+                    jr.skipValue();
+                    break;
             }
         }
         jr.endObject();
