@@ -4,8 +4,11 @@
   "version": "${version}",
   "name": "HardcodeTextPatcher",
   "description": "Fixed the hard coded local string problem in some mods.",
-  "authors": [
+  "credits": [
     "FengMing, teddyxlandlee"
+  ],
+  "authors": [
+    "TexTrue, LocalizedCNMC"
   ],
   "contact": {
     "homepage": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric",
