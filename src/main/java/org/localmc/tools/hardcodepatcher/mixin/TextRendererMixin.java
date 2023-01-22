@@ -21,7 +21,7 @@ public class TextRendererMixin {
             index = 0
     )
 
-    private String proxy_drawLayer(String text) {
+    private String proxy_drawInternal(String text) {
         return Objects.requireNonNullElse(ThePatcher.patch(text), text);
     }
 }
