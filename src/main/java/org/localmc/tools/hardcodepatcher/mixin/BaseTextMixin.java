@@ -54,5 +54,4 @@ public abstract class BaseTextMixin {
         this.siblings.add(new LiteralText(c));
         cir.setReturnValue(this.copy());
     }
-
 }

@@ -11,7 +11,6 @@
     "homepage": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric",
     "sources": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric"
   },
-
   "license": "GPLv3",
   "icon": "icon.png",
   "environment": "*",
