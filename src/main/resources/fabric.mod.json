@@ -4,11 +4,8 @@
   "version": "${version}",
   "name": "HardcodeTextPatcher",
   "description": "Fixed the hard coded local string problem in some mods.",
-  "credits": [
-    "FengMing, teddyxlandlee"
-  ],
   "authors": [
-    "TexTrue, LocalizedCNMC"
+    "FengMing, teddyxlandlee","TexTrue, LocalizedCNMC"
   ],
   "contact": {
     "homepage": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric",
@@ -17,7 +14,6 @@
 
   "license": "GPLv3",
   "icon": "icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [

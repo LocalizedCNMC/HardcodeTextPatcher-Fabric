@@ -39,23 +39,18 @@ public abstract class BaseTextMixin {
     @Shadow
     public abstract MutableText copy();
 
-    @ModifyArg(method = "asOrderedText",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/util/Language;reorder(Lnet/minecraft/text/StringVisitable;)Lnet/minecraft/text/OrderedText;"
-            )
-    )
-    private StringVisitable proxy_asOrderedText(StringVisitable p_128116_) {
-        if (p_128116_ instanceof BaseText) {
-            String c = ThePatcher.patch(p_128116_.getString());
+    @ModifyArg(method = "asOrderedText", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Language;reorder(Lnet/minecraft/text/StringVisitable;)Lnet/minecraft/text/OrderedText;"))
+    private StringVisitable proxy_asOrderedText(StringVisitable text) {
+        if (text instanceof BaseText) {
+            String c = ThePatcher.patch(text.getString());
             return new LiteralText(c);
         }
-        return p_128116_;
+        return text;
     }
 
     @Inject(method = "append", at = @At("HEAD"), cancellable = true)
-    private void proxy_append(Text p_230529_1_, CallbackInfoReturnable<MutableText> cir) {
-        String c = ThePatcher.patch(p_230529_1_.getString());
+    private void proxy_append(Text text, CallbackInfoReturnable<MutableText> cir) {
+        String c = ThePatcher.patch(text.getString());
         this.siblings.add(new LiteralText(c));
         cir.setReturnValue(this.copy());
     }
