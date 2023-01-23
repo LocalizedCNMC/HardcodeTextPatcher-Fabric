@@ -1,5 +1,7 @@
 package org.localmc.tools.hardcodepatcher;
 
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.localmc.tools.hardcodepatcher.command.CommandEventHandler;
 import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherConfig;
 import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherPatch;
@@ -25,7 +27,7 @@ public class HardcodeTextPatcher implements ModInitializer {
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
-
+/*
         try {
             HardcodeTextPatcherConfig.readConfig();
             List<String> mods = HardcodeTextPatcherConfig.getMods();
@@ -41,6 +43,32 @@ public class HardcodeTextPatcher implements ModInitializer {
         } catch (IOException e) {
             LOGGER.error("Failed to load config: ", e);
             throw new RuntimeException(e);
+        }
+ */
+    }
+
+    //@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static final class Events {
+        @SubscribeEvent(priority = EventPriority.LOWEST)
+        public static void loadConfig(FMLConstructModEvent event) {
+            event.enqueueWork(() -> {
+                try {
+                    HardcodeTextPatcherConfig.readConfig();
+                    List<String> mods = HardcodeTextPatcherConfig.getMods();
+                    for (String mod : mods) {
+                        HardcodeTextPatcherConfig vpp = new HardcodeTextPatcherConfig(mod + ".json");
+                        try {
+                            vpp.readConfig();
+                            vpps.add(vpp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (IOException e) {
+                    LOGGER.error("Failed to load config: ", e);
+                    throw new RuntimeException(e);
+                }
+            });
         }
     }
 }

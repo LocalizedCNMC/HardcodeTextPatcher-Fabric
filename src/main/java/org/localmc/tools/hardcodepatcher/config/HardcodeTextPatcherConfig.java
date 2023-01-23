@@ -21,7 +21,7 @@ public class HardcodeTextPatcherConfig {
     private static final Gson GSON = new Gson();
     private static final Path configFile = HardcodeTextPatcher.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();
-    private static DebugMode debug = new DebugMode();
+    private static final DebugMode debug = new DebugMode();
 
     public static List<String> getMods() {
         return mods;
