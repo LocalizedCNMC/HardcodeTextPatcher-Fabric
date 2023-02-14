@@ -16,7 +16,7 @@ import java.util.List;
 
 public class HardcodePatcher implements ModInitializer {
     public static final String MODID = "hardcodepatcher";
-    public static final String patchFileName = "localpatcher.json";
+    public static final String patchFileName = "hardcodepatcher.json";
     public static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("HardcodePatcher");
     public static final Logger LOGGER = LogUtils.getLogger();
     public static ArrayList<String> exportList = new ArrayList<>();
