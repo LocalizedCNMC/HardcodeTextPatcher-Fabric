@@ -2,7 +2,7 @@ package org.localmc.tools.hardcodepatcher.mixin;
 
 import org.localmc.tools.hardcodepatcher.ThePatcher;
 import net.minecraft.client.font.TextRenderer;
-import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
@@ -22,7 +22,7 @@ public class TextRendererMixin {
                     target = "Lnet/minecraft/client/font/TextRenderer;draw(Ljava/lang/String;FFILnet/minecraft/util/math/Matrix4f;ZZ)I"
             ))
     private void proxy_draw(Args args) {
-        HardcodeTextPatcher.exportList.add(args.get(0));
+        HardcodePatcher.exportList.add(args.get(0));
         //Modify String
         String modifyString = ThePatcher.patch(args.get(0));
         modifyString = modifyString == null ? args.get(0) : modifyString;

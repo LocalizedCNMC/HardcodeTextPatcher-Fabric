@@ -3,7 +3,7 @@ package org.localmc.tools.hardcodepatcher.config;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 import net.minecraft.client.resource.language.I18n;
 
 import java.io.FileInputStream;
@@ -23,12 +23,12 @@ public class HardcodeTextPatcherPatch {
     private PatchInfo info = new PatchInfo();
 
     public HardcodeTextPatcherPatch(String patchFile) {
-        HardcodeTextPatcher.LOGGER.info("Load Module " + patchFile);
-        Path p = HardcodeTextPatcher.configPath.resolve(patchFile);
+        HardcodePatcher.LOGGER.info("Load Module " + patchFile);
+        Path p = HardcodePatcher.configPath.resolve(patchFile);
         try {
             Files.createDirectories(p.getParent());
         } catch (IOException e) {
-            HardcodeTextPatcher.LOGGER.error("Failed to create {}", p.getParent(), e);
+            HardcodePatcher.LOGGER.error("Failed to create {}", p.getParent(), e);
             throw new RuntimeException(e);
         }
         this.patchFile = p;
