@@ -1,7 +1,6 @@
 package org.localmc.tools.hardcodepatcher;
 
 import com.mojang.logging.LogUtils;
-import net.fabricmc.fabric.api.event.EventFactory;
 import org.localmc.tools.hardcodepatcher.command.CommandEventHandler;
 import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherConfig;
 import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherPatch;
@@ -26,8 +25,25 @@ public class HardcodePatcher implements ModInitializer {
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
-    }
 
+        try {
+            HardcodeTextPatcherConfig.readConfig();
+            List<String> mods = HardcodeTextPatcherConfig.getMods();
+            for (String mod : mods) {
+                HardcodeTextPatcherPatch vpp = new HardcodeTextPatcherPatch(mod + ".json");
+                try {
+                    vpp.readConfig();
+                    vpps.add(vpp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Failed to load config: ", e);
+            throw new RuntimeException(e);
+        }
+    }
+/*
     public static void loadConfig() {
         try {
             HardcodeTextPatcherConfig.readConfig();
@@ -46,4 +62,5 @@ public class HardcodePatcher implements ModInitializer {
             throw new RuntimeException(e);
         }
     }
+ */
 }
