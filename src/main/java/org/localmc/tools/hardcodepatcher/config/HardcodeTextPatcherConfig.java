@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,7 +14,7 @@ import java.util.*;
 
 public class HardcodeTextPatcherConfig {
     private static final Gson GSON = new Gson();
-    private static final Path configFile = HardcodeTextPatcher.configPath.resolve("config.json");
+    private static final Path configFile = HardcodePatcher.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();
     private static final DebugMode debug = new DebugMode();
 

@@ -1,6 +1,7 @@
 package org.localmc.tools.hardcodepatcher;
 
 import com.mojang.logging.LogUtils;
+import net.fabricmc.fabric.api.event.EventFactory;
 import org.localmc.tools.hardcodepatcher.command.CommandEventHandler;
 import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherConfig;
 import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherPatch;
@@ -14,7 +15,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HardcodeTextPatcher implements ModInitializer {
+public class HardcodePatcher implements ModInitializer {
     public static final String MODID = "hardcodepatcher";
     public static final String patchFileName = "localpatcher.json";
     public static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("HardcodePatcher");
@@ -25,7 +26,9 @@ public class HardcodeTextPatcher implements ModInitializer {
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
+    }
 
+    public static void loadConfig() {
         try {
             HardcodeTextPatcherConfig.readConfig();
             List<String> mods = HardcodeTextPatcherConfig.getMods();

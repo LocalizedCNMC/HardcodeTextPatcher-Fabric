@@ -16,13 +16,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.localmc.tools.hardcodepatcher.HardcodeTextPatcher"
+      "org.localmc.tools.hardcodepatcher.HardcodePatcher"
     ]
   },
   "mixins": [
     "hardcodepatcher.mixins.json"
   ],
-
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",

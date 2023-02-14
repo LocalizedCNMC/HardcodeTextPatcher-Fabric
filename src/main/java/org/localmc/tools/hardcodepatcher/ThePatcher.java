@@ -14,21 +14,21 @@ public class ThePatcher {
         if (s == null || s.trim().equals("")) {
             return s;
         }
-        HardcodeTextPatcher.exportList.add(s);
+        HardcodePatcher.exportList.add(s);
         // HardcodeTextPatcher.LOGGER.info(Arrays.toString(Thread.currentThread().getStackTrace()));
         String ret;
-        for (HardcodeTextPatcherPatch vpp : HardcodeTextPatcher.vpps) {
+        for (HardcodeTextPatcherPatch vpp : HardcodePatcher.vpps) {
             StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
             ret = vpp.patch(s, stacks);
             DebugMode debug = HardcodeTextPatcherConfig.getDebugMode();
             if (ret != null && !ret.equals(s)) {
                 if (debug.isEnable() && debug.getOutputMode() == 0) {
-                    HardcodeTextPatcher.LOGGER.info(String.format(debug.getOutputFormat(), s, ret, Arrays.toString(stacks)));
+                    HardcodePatcher.LOGGER.info(String.format(debug.getOutputFormat(), s, ret, Arrays.toString(stacks)));
                 }
                 return ret;
             } else {
                 if (debug.isEnable() && debug.getOutputMode() == 1) {
-                    HardcodeTextPatcher.LOGGER.info(String.format(debug.getOutputFormat(), s, ret, Arrays.toString(stacks)));
+                    HardcodePatcher.LOGGER.info(String.format(debug.getOutputFormat(), s, ret, Arrays.toString(stacks)));
                 }
                 return s;
             }

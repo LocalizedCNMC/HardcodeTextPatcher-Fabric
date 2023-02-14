@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
-import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
@@ -22,13 +22,13 @@ public class ExportCommand implements Command<ServerCommandSource> {
     public int run(CommandContext<ServerCommandSource> context) {
         context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.warning.wip"), true);
         Gson gson = new Gson();
-        String json = gson.toJson(HardcodeTextPatcher.exportList, new TypeToken<ArrayList<String>>() {
+        String json = gson.toJson(HardcodePatcher.exportList, new TypeToken<ArrayList<String>>() {
         }.getType());
         //Export langs
         try {
             BufferedWriter bw = new BufferedWriter(
                     new FileWriter(
-                            FabricLoader.getInstance().getGameDir().resolve(HardcodeTextPatcher.patchFileName).toFile(),
+                            FabricLoader.getInstance().getGameDir().resolve(HardcodePatcher.patchFileName).toFile(),
                             StandardCharsets.UTF_8));
             bw.write(json);
             bw.flush();

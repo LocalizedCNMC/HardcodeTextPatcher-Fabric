@@ -1,6 +1,6 @@
 # HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
 
-语言：**[简体中文](README.md) / [English](README_en_us.md)**
+语言：**简体中文 / [English](README_en_us.md)**
 
 Vault Patcher 的非官方 Fabric 移植版（WIP）。
 

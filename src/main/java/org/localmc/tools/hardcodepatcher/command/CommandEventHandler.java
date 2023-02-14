@@ -1,14 +1,14 @@
 package org.localmc.tools.hardcodepatcher.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import org.localmc.tools.hardcodepatcher.HardcodeTextPatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 
 public class CommandEventHandler {
     public static void registerClientCommands(CommandDispatcher<ServerCommandSource> dispatcher, Boolean dedicated) {
         dispatcher.register(
-                CommandManager.literal(HardcodeTextPatcher.MODID
+                CommandManager.literal(HardcodePatcher.MODID
                 ).then(
                         CommandManager.literal("export")
                                 .executes(ExportCommand.instance)
