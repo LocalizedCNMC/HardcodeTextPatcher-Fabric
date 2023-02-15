@@ -1,12 +1,14 @@
+<center><div align="center">
+
+<img height="150" src="icon/icon.png" width="150"/>
+
 # HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
 
-**Language：[简体中文](README.md) / [English](README_en_us.md)**
+An unofficial Fabric Port of Vault Patcher (WIP). Hardcoded -> Localization. Let the hard coded strings change into localization strings in some mods.
 
-An unofficial Fabric Port of Vault Patcher (WIP).
+[ZH-CN](README.md) / English
 
-### Hardcoded -> Localization
-
-### Let the hard coded strings change into localization strings in some mods.
+</div></center>
 
 # Configs File
 

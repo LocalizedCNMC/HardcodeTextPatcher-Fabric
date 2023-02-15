@@ -1,12 +1,14 @@
+<center><div align="center">
+
+<img height="150" src="icon/icon.png" width="150"/>
+
 # HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
 
-语言：**简体中文 / [English](README_en_us.md)**
+Vault Patcher 的非官方 Fabric 移植版（WIP）。硬编码 -> 本地化。让一些mod中硬编码的字符串变为可以本地化的字符串。
 
-Vault Patcher 的非官方 Fabric 移植版（WIP）。
+ZH-CN / [English](README-EN.md)
 
-### 硬编码 -> 本地化
-
-### 让一些mod中硬编码的字符串变为可以本地化的字符串。
+</div></center>
 
 # 配置文件
 
