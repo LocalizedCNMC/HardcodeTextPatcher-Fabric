@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = LiteralText.class)
+@Mixin(value = LiteralText.class, priority = -Integer.MAX_VALUE)
 public abstract class LiteralTextMixin {
     @Accessor("string")
     abstract String getString_();
