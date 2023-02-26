@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.Objects;
 
-@Mixin(value = TextRenderer.class, priority = Integer.MAX_VALUE)
+@Mixin(value = TextRenderer.class)
 public class TextRendererMixin {
 
     // String

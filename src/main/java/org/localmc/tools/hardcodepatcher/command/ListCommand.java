@@ -2,7 +2,7 @@ package org.localmc.tools.hardcodepatcher.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
-import org.localmc.tools.hardcodepatcher.config.HardcodeTextPatcherConfig;
+import org.localmc.tools.hardcodepatcher.config.HardcodePatcherConfig;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
@@ -16,7 +16,7 @@ public class ListCommand implements Command<ServerCommandSource> {
     public int run(CommandContext<ServerCommandSource> context) {
         context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.list.warning.wip"), false);
         context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.list.tips.modslist"), false);
-        List<String> mods = HardcodeTextPatcherConfig.getMods();
+        List<String> mods = HardcodePatcherConfig.getMods();
         StringBuilder smods = new StringBuilder();
         for (String mod : mods) {
             smods.append(mod).append(", ");

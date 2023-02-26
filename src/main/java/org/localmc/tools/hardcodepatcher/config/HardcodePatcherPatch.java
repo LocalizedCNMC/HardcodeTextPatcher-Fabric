@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class HardcodeTextPatcherPatch {
+public class HardcodePatcherPatch {
     private static final Gson GSON = new Gson();
     private static boolean isSemimatch = false;
     private final Path patchFile;
@@ -22,7 +22,7 @@ public class HardcodeTextPatcherPatch {
 
     private PatchInfo info = new PatchInfo();
 
-    public HardcodeTextPatcherPatch(String patchFile) {
+    public HardcodePatcherPatch(String patchFile) {
         HardcodePatcher.LOGGER.info("Load Module " + patchFile);
         Path p = HardcodePatcher.configPath.resolve(patchFile);
         try {
@@ -60,7 +60,7 @@ public class HardcodeTextPatcherPatch {
         if (Files.notExists(patchFile)) {
             Files.createFile(patchFile);
         }
-        try (var jsonReader = GSON.newJsonReader(new InputStreamReader(new FileInputStream(patchFile.toFile())))) {
+        try (JsonReader jsonReader = GSON.newJsonReader(new InputStreamReader(new FileInputStream(patchFile.toFile())))) {
             readConfig(jsonReader);
         }
     }

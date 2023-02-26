@@ -300,7 +300,7 @@ TRANSFORMER/minecraft@1.18.2/net.minecraft.client.gui.screen.TitleScreen(TitleSc
 
 ## 其他
 
-#### Fabric移植版作者：TexTrue
+#### Fabric移植：TexTrue
 
 #### 原开发团队：
 

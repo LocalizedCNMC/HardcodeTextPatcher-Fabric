@@ -40,18 +40,21 @@ public abstract class BaseTextMixin {
     @Shadow
     public abstract MutableText copy();
 
+    @Shadow
+    public abstract Style getStyle();
+
     @ModifyArg(method = "asOrderedText", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Language;reorder(Lnet/minecraft/text/StringVisitable;)Lnet/minecraft/text/OrderedText;"))
     private StringVisitable proxy_asOrderedText(StringVisitable text) {
         if (text instanceof LiteralText) {
             String c = ThePatcher.patch(text.getString());
-            return new LiteralText(c);
+            return new LiteralText(c).setStyle(this.getStyle());
         }
         return text;
     }
     @Inject(method = "append", at = @At("HEAD"), cancellable = true)
     private void proxy_append(Text text, CallbackInfoReturnable<MutableText> cir) {
         String c = ThePatcher.patch(text.getString());
-        this.siblings.add(new LiteralText(c));
+        this.siblings.add(new LiteralText(c).setStyle(this.getStyle()));
         cir.setReturnValue(this.copy());
     }
 }
