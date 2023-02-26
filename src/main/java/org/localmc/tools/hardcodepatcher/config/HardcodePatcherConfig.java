@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HardcodeTextPatcherConfig {
+public class HardcodePatcherConfig {
     private static final Gson GSON = new Gson();
     private static final Path configFile = HardcodePatcher.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();

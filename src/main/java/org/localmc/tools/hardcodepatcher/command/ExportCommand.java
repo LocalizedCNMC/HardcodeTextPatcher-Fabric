@@ -8,12 +8,12 @@ import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
+import org.localmc.tools.hardcodepatcher.HardcodePatcherUtils;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class ExportCommand implements Command<ServerCommandSource> {
     public static ExportCommand instance = new ExportCommand();
@@ -22,9 +22,9 @@ public class ExportCommand implements Command<ServerCommandSource> {
     public int run(CommandContext<ServerCommandSource> context) {
         context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.warning.wip"), true);
         Gson gson = new Gson();
-        String json = gson.toJson(HardcodePatcher.exportList, new TypeToken<ArrayList<String>>() {
+        String json = gson.toJson(HardcodePatcherUtils.exportList, new TypeToken<ArrayList<String>>() {
         }.getType());
-        //Export langs
+        //Export
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(FabricLoader.getInstance().getGameDir().resolve(HardcodePatcher.patchFileName).toFile()));
             bw.write(json);
