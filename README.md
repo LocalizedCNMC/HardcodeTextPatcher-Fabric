@@ -14,7 +14,7 @@ ZH-CN / [English](README-EN.md)
 
 ## 配置
 
-在`config/HardcodePatcher/`下的格式为`config.json`和若干个`模块.json`。（模块文件目前在Fabric版中是必须存在一个以上）
+在`config/HardcodePatcher/`下的格式为`config.json`和若干个`模块.json`。（模块文件目前在Fabric版中是必须存在一个及以上）
 
 `config.json`是必须的。 
 如下：
@@ -30,7 +30,7 @@ ZH-CN / [English](README-EN.md)
   }
 }
 ```
-### 模块（mods）(模块文件目前在Fabric版是必须存在一个以上)
+### 模块（mods）(模块文件目前在Fabric版是必须存在一个及以上)
 `config.json`定义了`模块.json`，
 `模块.json`才会被正常读取读取并使用。反之亦然。
 
