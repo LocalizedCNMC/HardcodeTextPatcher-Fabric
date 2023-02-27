@@ -4,7 +4,7 @@
 
 # Hardcode Patcher (WIP)
 
-An unofficial Fabric Port of Vault Patcher (WIP). Let the hard coded strings change into localization strings in some mods.
+An unofficial Fabric Port of Vault Patcher. Let the hard coded strings change into localization strings in some mods.
 
 [ZH-CN](README.md) / English
 
