@@ -2,9 +2,9 @@
 
 <img height="150" src="icon/icon.png" width="150"/>
 
-# HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
+# Hardcode Patcher (WIP)
 
-An unofficial Fabric Port of Vault Patcher (WIP). Hardcoded -> Localization. Let the hard coded strings change into localization strings in some mods.
+An unofficial Fabric Port of Vault Patcher (WIP). Let the hard coded strings change into localization strings in some mods.
 
 [ZH-CN](README.md) / English
 
@@ -14,7 +14,7 @@ An unofficial Fabric Port of Vault Patcher (WIP). Hardcoded -> Localization. Let
 
 ## Modular
 
-the format in `config/HardcodePatcher/` directory like is `config.json` and several `module.json`.
+the format in `config/HardcodePatcher/` directory like is `config.json` and several `module.json`. (Module files are currently required to exist in one or more of the Fabric versions)
 
 `config.json` must be provided.
 It is as follows:
@@ -31,7 +31,7 @@ It is as follows:
 }
 ```
 
-### Mods
+### Mods (Module files are currently required to exist in one or more of the Fabric versions)
 `config.json` defined `module.json`.
 Only in this way can `module.json` read and used normally.
 
