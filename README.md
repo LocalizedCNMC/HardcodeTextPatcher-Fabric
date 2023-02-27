@@ -2,9 +2,9 @@
 
 <img height="150" src="icon/icon.png" width="150"/>
 
-# HardcodeText Patcher (WIP) ~~Vault Patcher~~ ~~（Vanilla Hardcoded Breaker）~~
+# Hardcode Patcher (WIP)
 
-Vault Patcher 的非官方 Fabric 移植版（WIP）。硬编码 -> 本地化。让一些mod中硬编码的字符串变为可以本地化的字符串。
+Vault Patcher 的非官方 Fabric 移植版（WIP）。让一些mod中硬编码的字符串转化为可以本地化的字符串。
 
 ZH-CN / [English](README-EN.md)
 
@@ -14,7 +14,7 @@ ZH-CN / [English](README-EN.md)
 
 ## 配置
 
-在`config/HardcodePatcher/`下的格式为`config.json`和若干个`模块.json`。
+在`config/HardcodePatcher/`下的格式为`config.json`和若干个`模块.json`。（模块文件目前在Fabric版中是必须存在一个以上）
 
 `config.json`是必须的。 
 如下：
@@ -30,7 +30,7 @@ ZH-CN / [English](README-EN.md)
   }
 }
 ```
-### 模块（mods）
+### 模块（mods）(模块文件目前在Fabric版是必须存在一个以上)
 `config.json`定义了`模块.json`，
 `模块.json`才会被正常读取读取并使用。反之亦然。
 
