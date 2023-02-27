@@ -4,7 +4,7 @@
 
 # Hardcode Patcher (WIP)
 
-Vault Patcher 的非官方 Fabric 移植版（WIP）。让一些mod中硬编码的字符串转化为可以本地化的字符串。
+Vault Patcher 的非官方 Fabric 移植版。让一些mod中硬编码的字符串转化为可以本地化的字符串。
 
 ZH-CN / [English](README-EN.md)
 
