@@ -10,14 +10,14 @@ public class CommandEventHandler {
     public static void registerClientCommands(CommandDispatcher<ServerCommandSource> dispatcher, Boolean dedicated) {
         LiteralCommandNode<ServerCommandSource> cmd = dispatcher.register(
                 CommandManager.literal(HardcodePatcher.MODID
-                ).then(
-                        CommandManager.literal("export")
+                    ).then(
+                            CommandManager.literal("export")
                                 .executes(ExportCommand.instance)
-                ).then(
-                        CommandManager.literal("list")
+                    ).then(
+                            CommandManager.literal("list")
                                 .executes(ListCommand.instance)
-                ).then(
-                        CommandManager.literal("reload")
+                    ).then(
+                            CommandManager.literal("reload")
                                 .executes(ReloadCommand.instance)
                 ));
         dispatcher.register(CommandManager.literal("hp").redirect(cmd));

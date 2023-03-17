@@ -9,6 +9,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
 import org.localmc.tools.hardcodepatcher.HardcodePatcherUtils;
+import org.localmc.tools.hardcodepatcher.config.HardcodePatcherConfig;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -21,10 +22,15 @@ public class ExportCommand implements Command<ServerCommandSource> {
 
     @Override
     public int run(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.warning.wip"), true);
         Gson gson = new Gson();
         String json = gson.toJson(HardcodePatcherUtils.exportList, new TypeToken<ArrayList<String>>() {
         }.getType());
+
+        if (HardcodePatcherConfig.getOptimize().isDisableExport()) {
+            context.getSource().sendError(new TranslatableText("commands.hardcodepatcher.export.tips.disabled"));
+            return 1;
+        }
+
         //Export
         try {
             BufferedWriter bw = new BufferedWriter(
@@ -38,7 +44,7 @@ public class ExportCommand implements Command<ServerCommandSource> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.tips.success"), true);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.tips.success" + HardcodePatcher.patchFileName), true);
         return 0;
     }
 }

@@ -1,6 +1,9 @@
 {
-  "commands.hardcodepatcher.export.tips.success": "完成！導出到langpatcher.json",
-  "commands.hardcodepatcher.export.warning.wip": "警告：此功能仍是*WIP*！",
-  "commands.hardcodepatcher.list.warning.wip": "警告：此功能仍是*WIP*！",
-  "commands.hardcodepatcher.list.tips.modslist": "以下為已加載的模塊列表："
+  "commands.hardcodepatcher.export.tips.success": "完成！已導出到 ",
+  "commands.hardcodepatcher.export.tips.disabled": "錯誤！導出功能已被禁用",
+  "commands.hardcodepatcher.list.tips.modslist": "以下為已加載的模塊列表：",
+  "commands.hardcodepatcher.list.tips.authors": "作者：%s",
+  "commands.hardcodepatcher.list.tips.name": "名稱：%s",
+  "commands.hardcodepatcher.list.tips.desc": "描述：%s",
+  "commands.hardcodepatcher.list.tips.mods": "模組：%s"
 }

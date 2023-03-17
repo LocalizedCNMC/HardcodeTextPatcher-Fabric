@@ -16,7 +16,7 @@ import java.util.List;
 
 public class HardcodePatcher implements ModInitializer {
     public static final String MODID = "hardcodepatcher";
-    public static final String patchFileName = "hardcodepatcher.json";
+    public static final String patchFileName = "langpatcher.json";
     public static final Path configPath = FabricLoader.getInstance().getConfigDir().resolve("HardcodePatcher");
     public static final Logger LOGGER = LogUtils.getLogger();
     public static List<HardcodePatcherPatch> vpps = new ArrayList<>();
@@ -31,7 +31,7 @@ public class HardcodePatcher implements ModInitializer {
             for (String mod : mods) {
                 HardcodePatcherPatch vpp = new HardcodePatcherPatch(mod + ".json");
                 try {
-                    vpp.readConfig();
+                    vpp.read();
                     vpps.add(vpp);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -42,24 +42,4 @@ public class HardcodePatcher implements ModInitializer {
             throw new RuntimeException(e);
         }
     }
-/*
-    public static void loadConfig() {
-        try {
-            HardcodeTextPatcherConfig.readConfig();
-            List<String> mods = HardcodeTextPatcherConfig.getMods();
-            for (String mod : mods) {
-                HardcodeTextPatcherPatch vpp = new HardcodeTextPatcherPatch(mod + ".json");
-                try {
-                    vpp.readConfig();
-                    vpps.add(vpp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            LOGGER.error("Failed to load config: ", e);
-            throw new RuntimeException(e);
-        }
-    }
- */
 }

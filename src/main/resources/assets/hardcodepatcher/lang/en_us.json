@@ -1,6 +1,9 @@
 {
-  "commands.hardcodepatcher.export.tips.success": "Done! Export to langpatcher.json",
-  "commands.hardcodepatcher.export.warning.wip": "Warning: This feature is still *WIP*!",
-  "commands.hardcodepatcher.list.warning.wip": "Warning: This feature is still *WIP*!",
-  "commands.hardcodepatcher.list.tips.modslist": "The following is a list of loaded modules: "
+  "commands.hardcodepatcher.export.tips.success": "Done! Export to ",
+  "commands.hardcodepatcher.export.tips.disabled": "Error! Export feature is disabled",
+  "commands.hardcodepatcher.list.tips.modslist": "The following is a list of loaded modules: ",
+  "commands.hardcodepatcher.list.tips.authors": "Authors: %s",
+  "commands.hardcodepatcher.list.tips.name": "Name: %s",
+  "commands.hardcodepatcher.list.tips.desc": "Description: %s",
+  "commands.hardcodepatcher.list.tips.mods": "Applied Mods: %s"
 }

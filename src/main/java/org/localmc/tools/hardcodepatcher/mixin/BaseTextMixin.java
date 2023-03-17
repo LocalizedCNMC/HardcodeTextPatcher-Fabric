@@ -15,23 +15,6 @@ import java.util.List;
 
 @Mixin(BaseText.class)
 public abstract class BaseTextMixin {
-    /*
-    @Accessor("siblings")
-    abstract List<Component> getSiblings();
-
-    @Inject(method = "getSiblings", at = @At("HEAD"), cancellable = true)
-    private void proxy_getSiblings(CallbackInfoReturnable<List<Component>> cir) {
-        List<Component> list = this.getSiblings();
-        if (!list.isEmpty()) {
-            list.replaceAll(component -> {
-                if (component instanceof TextComponent) {
-                    return new TextComponent(ThePatcher.patch(component.getContents()));
-                } else return component;
-            });
-        }
-        cir.setReturnValue(list);
-    }
-    */
 
     @Shadow
     @Final
@@ -44,17 +27,25 @@ public abstract class BaseTextMixin {
     public abstract Style getStyle();
 
     @ModifyArg(method = "asOrderedText", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Language;reorder(Lnet/minecraft/text/StringVisitable;)Lnet/minecraft/text/OrderedText;"))
-    private StringVisitable proxy_asOrderedText(StringVisitable text) {
-        if (text instanceof LiteralText) {
-            String c = ThePatcher.patch(text.getString());
-            return new LiteralText(c).setStyle(this.getStyle());
+    private StringVisitable proxy_asOrderedText(StringVisitable text1) {
+        if (text1 instanceof LiteralText text) {
+            String c = ThePatcher.patch(text.getString(), "BaseText#asOrderedText");
+
+            if (c != null && !c.equals("")) {
+                return new LiteralText(c).setStyle(this.getStyle());
+            }
         }
-        return text;
+        return text1;
     }
     @Inject(method = "append", at = @At("HEAD"), cancellable = true)
-    private void proxy_append(Text text, CallbackInfoReturnable<MutableText> cir) {
-        String c = ThePatcher.patch(text.getString());
-        this.siblings.add(new LiteralText(c).setStyle(this.getStyle()));
-        cir.setReturnValue(this.copy());
+    private void proxy_append(Text text2, CallbackInfoReturnable<MutableText> cir) {
+        if (text2 instanceof LiteralText text) {
+            String c = ThePatcher.patch(text.getString(), "BaseText#append");
+
+            if (c != null && !c.equals("")) {
+                this.siblings.add(new LiteralText(c).setStyle(text.getStyle()));
+                cir.setReturnValue(this.copy());
+            }
+        }
     }
 }

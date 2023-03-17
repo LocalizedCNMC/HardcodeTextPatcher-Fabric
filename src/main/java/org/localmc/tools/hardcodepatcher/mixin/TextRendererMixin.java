@@ -6,8 +6,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import java.util.Objects;
-
 @Mixin(value = TextRenderer.class)
 public class TextRendererMixin {
 
@@ -22,6 +20,10 @@ public class TextRendererMixin {
     )
 
     private String proxy_drawInternal(String text) {
-        return Objects.requireNonNullElse(ThePatcher.patch(text), text);
+        String c = ThePatcher.patch(text, "TextRenderer#drawInternal(String;float;float;int;boolean;Matrix4f;VertexConsumerProvider;boolean;int;int;boolean)");
+        if (c != null && !c.equals("")) {
+            return c;
+        }
+        return text;
     }
 }

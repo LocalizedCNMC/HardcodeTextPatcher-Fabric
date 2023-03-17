@@ -10,38 +10,51 @@ public class ThePatcher {
     public ThePatcher() {
     }
 
-    public static String patch(String s) {
-        if (s == null || s.isBlank()) {
-            return s;
+    public static String patch(String string, String method) {
+        if (string == null || string.equals("") || string.isBlank()) {
+            return string;
         }
-        HardcodePatcherUtils.addToExportList(s);
-        // HardcodeTextPatcher.LOGGER.info(Arrays.toString(Thread.currentThread().getStackTrace()));
+
+        if (!HardcodePatcherConfig.getOptimize().isDisableExport()) {
+            HardcodePatcherUtils.addToExportList(string);
+        }
+
         String ret;
         for (HardcodePatcherPatch vpp : HardcodePatcher.vpps) {
             StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
-            ret = vpp.patch(s, stacks);
+            ret = vpp.patch(string, stacks);
+
             DebugMode debug = HardcodePatcherConfig.getDebugMode();
-            String format = debug.getOutputFormat();
-            if (ret != null && !ret.equals(s)) {
-                if (debug.isEnable() && (debug.getOutputMode() == 1 || debug.getOutputMode() == 0)) {
-                    HardcodePatcher.LOGGER.info(
-                            format.replace("<source>", s)
-                                    .replace("<target>", ret)
-                                    .replace("<stack>", Arrays.toString(stacks))
-                    );
-                }
-                return ret;
-            } else {
-                if (debug.isEnable() && debug.getOutputMode() == 1) {
-                    HardcodePatcher.LOGGER.info(
-                            format.replace("<source>", s)
-                                    .replace("<target>", s)
-                                    .replace("<stack>", Arrays.toString(stacks))
-                    );
-                }
-                return s;
+
+            if (debug.isEnable()) {
+                return outputDebugIndo(string, method, ret, stacks, debug);
+            } else return ret;
+
+        }
+        return string;
+    }
+
+    private static String outputDebugIndo(String s, String m, String ret, StackTraceElement[] stacks, DebugMode debug) {
+        String format = debug.getOutputFormat();
+        if (ret != null && !ret.equals(s)) {
+            if (debug.getOutputMode() == 1 || debug.getOutputMode() == 0) {
+                HardcodePatcher.LOGGER.info(
+                        format.replace("<source>", s)
+                                .replace("<target>", ret)
+                                .replace("<method>", m)
+                                .replace("<stack>", Arrays.toString(stacks))
+                );
+            }
+        } else {
+            if (debug.getOutputMode() == 1) {
+                HardcodePatcher.LOGGER.info(
+                        format.replace("<source>", s)
+                                .replace("<target>", s)
+                                .replace("<method>", m)
+                                .replace("<stack>", Arrays.toString(stacks))
+                );
             }
         }
-        return s;
+        return ret;
     }
 }

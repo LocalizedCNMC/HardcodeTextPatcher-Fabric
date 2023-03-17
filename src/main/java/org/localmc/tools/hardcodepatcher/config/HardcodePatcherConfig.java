@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonWriter;
 import org.localmc.tools.hardcodepatcher.HardcodePatcher;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -17,6 +18,7 @@ public class HardcodePatcherConfig {
     private static final Path configFile = HardcodePatcher.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();
     private static final DebugMode debug = new DebugMode();
+    private static final OptimizeParams optimize = new OptimizeParams();
 
     public static List<String> getMods() {
         return mods;
@@ -26,10 +28,15 @@ public class HardcodePatcherConfig {
         return debug;
     }
 
+    public static OptimizeParams getOptimize() {
+        return optimize;
+    }
+
     private static void writeConfig(JsonWriter jw) throws IOException {
         debug.writeJson(jw);
         jw.name("mods").beginArray();
         jw.name("mods").endArray();
+        optimize.writeJson(jw);
     }
 
     public static void readConfig() throws IOException {
@@ -39,11 +46,11 @@ public class HardcodePatcherConfig {
                 f.getParentFile().mkdirs();
             }
             Files.createFile(configFile);
-            JsonWriter jw = GSON.newJsonWriter(Files.newBufferedWriter(configFile));
+            JsonWriter jw = GSON.newJsonWriter(Files.newBufferedWriter(configFile, StandardCharsets.UTF_8));
             writeConfig(jw);
         }
 
-        JsonReader jr = GSON.newJsonReader(new InputStreamReader(new FileInputStream(f)));
+        JsonReader jr = GSON.newJsonReader(new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8));
 
         jr.beginObject();
         while (jr.peek() != JsonToken.END_OBJECT) {
@@ -57,6 +64,11 @@ public class HardcodePatcherConfig {
                     if (jr.peek() == JsonToken.BEGIN_ARRAY) {
                         mods = GSON.fromJson(jr, new TypeToken<List<String>>() {
                         }.getType());
+                    }
+                    break;
+                case "optimize_params":
+                    if (jr.peek() == JsonToken.BEGIN_OBJECT) {
+                        optimize.readJson(jr);
                     }
                     break;
                 default:
