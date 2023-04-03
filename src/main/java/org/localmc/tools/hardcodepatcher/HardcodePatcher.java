@@ -1,11 +1,11 @@
 package org.localmc.tools.hardcodepatcher;
 
 import com.mojang.logging.LogUtils;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import org.localmc.tools.hardcodepatcher.command.CommandEventHandler;
 import org.localmc.tools.hardcodepatcher.config.HardcodePatcherConfig;
 import org.localmc.tools.hardcodepatcher.config.HardcodePatcherPatch;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 
@@ -24,21 +24,26 @@ public class HardcodePatcher implements ModInitializer {
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
+        HPConfigRegistrationCallback.EVENT.register(this::loadConfig);
+    }
 
+    public void loadConfig(HardcodePatcherPatch hpp, String json) {
+        List<HardcodePatcherPatch> hpps = HardcodePatcher.vpps;
+        json = ".json";
         try {
             HardcodePatcherConfig.readConfig();
             List<String> mods = HardcodePatcherConfig.getMods();
             for (String mod : mods) {
-                HardcodePatcherPatch vpp = new HardcodePatcherPatch(mod + ".json");
+                hpp = new HardcodePatcherPatch(mod + json);
                 try {
-                    vpp.read();
-                    vpps.add(vpp);
+                    hpp.read();
+                    hpps.add(hpp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("Failed to load config: ", e);
+            HardcodePatcher.LOGGER.error("Failed to load config: ", e);
             throw new RuntimeException(e);
         }
     }

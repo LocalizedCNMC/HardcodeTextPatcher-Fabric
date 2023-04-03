@@ -2,13 +2,13 @@
 
 <img height="150" src="icon/icon.png" width="150"/>
 
-# Hardcode Patcher (WIP)
+# Hardcode Patcher
 
 Vault Patcher 的非官方 Fabric 移植版。让一些mod中硬编码的字符串转化为可以本地化的字符串。
 
 ZH-CN / [English](README-EN.md)
 
-## ⚠警告：1.0.1及以下的版本不再受支持！
+## ⚠警告：1.0.1以下的版本不再受支持！
 
 </div></center>
 
