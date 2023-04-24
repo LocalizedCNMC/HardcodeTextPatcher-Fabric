@@ -24,20 +24,37 @@ public class HardcodePatcher implements ModInitializer {
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register(CommandEventHandler::registerClientCommands);
-        HPConfigRegistrationCallback.EVENT.register(this::loadConfig);
-    }
 
-    public void loadConfig(HardcodePatcherPatch hpp, String json) {
-        List<HardcodePatcherPatch> hpps = HardcodePatcher.vpps;
-        json = ".json";
         try {
             HardcodePatcherConfig.readConfig();
             List<String> mods = HardcodePatcherConfig.getMods();
             for (String mod : mods) {
-                hpp = new HardcodePatcherPatch(mod + json);
+                HardcodePatcherPatch vpp = new HardcodePatcherPatch(mod + ".json");
                 try {
-                    hpp.read();
-                    hpps.add(hpp);
+                    vpp.read();
+                    vpps.add(vpp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Failed to load config: ", e);
+            throw new RuntimeException(e);
+        }
+
+        //HardcodePatcherConfigRegistrationCallback.EVENT.register(this::loadConfig);
+    }
+
+    /*
+    public void loadConfig() {
+        try {
+            HardcodePatcherConfig.readConfig();
+            List<String> mods = HardcodePatcherConfig.getMods();
+            for (String mod : mods) {
+                HardcodePatcherPatch vpp = new HardcodePatcherPatch(mod + ".json");
+                try {
+                    vpp.read();
+                    vpps.add(vpp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -47,4 +64,5 @@ public class HardcodePatcher implements ModInitializer {
             throw new RuntimeException(e);
         }
     }
+     */
 }

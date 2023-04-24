@@ -7,11 +7,8 @@ import org.localmc.tools.hardcodepatcher.config.HardcodePatcherConfig;
 import java.util.Arrays;
 
 public class ThePatcher {
-    public ThePatcher() {
-    }
-
     public static String patch(String string, String method) {
-        if (string == null || string.equals("") || string.isBlank()) {
+        if (string == null || string.equals("")) {
             return string;
         }
 
@@ -21,7 +18,10 @@ public class ThePatcher {
 
         String ret;
         for (HardcodePatcherPatch vpp : HardcodePatcher.vpps) {
-            StackTraceElement[] stacks = Thread.currentThread().getStackTrace();
+            StackTraceElement[] stacks = null;
+            if (!HardcodePatcherConfig.getOptimize().isDisableStacks()) {
+                stacks = Thread.currentThread().getStackTrace();
+            }
             ret = vpp.patch(string, stacks);
 
             DebugMode debug = HardcodePatcherConfig.getDebugMode();

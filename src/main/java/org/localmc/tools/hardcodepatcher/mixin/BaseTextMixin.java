@@ -28,6 +28,7 @@ public abstract class BaseTextMixin {
 
     @ModifyArg(method = "asOrderedText", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Language;reorder(Lnet/minecraft/text/StringVisitable;)Lnet/minecraft/text/OrderedText;"))
     private StringVisitable proxy_asOrderedText(StringVisitable text1) {
+        if (text1 instanceof TranslatableText) return text1;
         if (text1 instanceof LiteralText text) {
             String c = ThePatcher.patch(text.getString(), "BaseText#asOrderedText");
 
@@ -39,6 +40,7 @@ public abstract class BaseTextMixin {
     }
     @Inject(method = "append", at = @At("HEAD"), cancellable = true)
     private void proxy_append(Text text2, CallbackInfoReturnable<MutableText> cir) {
+        if (text2 instanceof TranslatableText) return;
         if (text2 instanceof LiteralText text) {
             String c = ThePatcher.patch(text.getString(), "BaseText#append");
 
