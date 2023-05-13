@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import org.localmc.tools.hardcodepatcher.HardcodePatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcherMod;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -15,7 +15,7 @@ import java.util.*;
 
 public class HardcodePatcherConfig {
     private static final Gson GSON = new Gson();
-    private static final Path configFile = HardcodePatcher.configPath.resolve("config.json");
+    private static final Path configFile = HardcodePatcherMod.configPath.resolve("config.json");
     private static List<String> mods = new ArrayList<>();
     private static final DebugMode debug = new DebugMode();
     private static final OptimizeParams optimize = new OptimizeParams();
@@ -55,25 +55,23 @@ public class HardcodePatcherConfig {
         jr.beginObject();
         while (jr.peek() != JsonToken.END_OBJECT) {
             switch (jr.nextName()) {
-                case "debug_mode":
+                case "debug_mode" -> {
                     if (jr.peek() == JsonToken.BEGIN_OBJECT) {
                         debug.readJson(jr);
                     }
-                    break;
-                case "mods":
+                }
+                case "mods" -> {
                     if (jr.peek() == JsonToken.BEGIN_ARRAY) {
                         mods = GSON.fromJson(jr, new TypeToken<List<String>>() {
                         }.getType());
                     }
-                    break;
-                case "optimize_params":
+                }
+                case "optimize_params" -> {
                     if (jr.peek() == JsonToken.BEGIN_OBJECT) {
                         optimize.readJson(jr);
                     }
-                    break;
-                default:
-                    jr.skipValue();
-                    break;
+                }
+                default -> jr.skipValue();
             }
         }
         jr.endObject();

@@ -3,7 +3,7 @@ package org.localmc.tools.hardcodepatcher.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.text.*;
-import org.localmc.tools.hardcodepatcher.HardcodePatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcherMod;
 import net.minecraft.server.command.ServerCommandSource;
 import org.localmc.tools.hardcodepatcher.config.HardcodePatcherPatch;
 import org.localmc.tools.hardcodepatcher.config.PatchInfo;
@@ -14,7 +14,7 @@ public class ListCommand implements Command<ServerCommandSource> {
     @Override
     public int run(CommandContext<ServerCommandSource> context) {
         context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.list.tips.modslist"), false);
-        for (HardcodePatcherPatch vpp : HardcodePatcher.vpps) {
+        for (HardcodePatcherPatch vpp : HardcodePatcherMod.vpps) {
             PatchInfo info = vpp.getInfo();
             context.getSource().sendFeedback(constructText(info, vpp.getPname()), false);
         }

@@ -1,12 +1,12 @@
 package org.localmc.tools.hardcodepatcher.mixin;
 
-import org.localmc.tools.hardcodepatcher.ThePatcher;
+import org.localmc.tools.hardcodepatcher.utils.ThePatcher;
 import net.minecraft.client.font.TextRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(value = TextRenderer.class)
+@Mixin(TextRenderer.class)
 public class TextRendererMixin {
 
     // String
@@ -20,7 +20,7 @@ public class TextRendererMixin {
     )
 
     private String proxy_drawInternal(String text) {
-        String c = ThePatcher.patch(text, "TextRenderer#drawInternal(String;float;float;int;boolean;Matrix4f;VertexConsumerProvider;boolean;int;int;boolean)");
+        String c = ThePatcher.patch(text, "TextRenderer#drawInternal(String)");
         if (c != null && !c.equals("")) {
             return c;
         }

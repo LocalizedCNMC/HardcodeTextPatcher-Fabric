@@ -1,6 +1,6 @@
 package org.localmc.tools.hardcodepatcher.mixin;
 
-import org.localmc.tools.hardcodepatcher.ThePatcher;
+import org.localmc.tools.hardcodepatcher.utils.ThePatcher;
 import net.minecraft.text.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

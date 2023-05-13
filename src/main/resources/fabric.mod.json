@@ -2,30 +2,30 @@
   "schemaVersion": 1,
   "id": "hardcodepatcher",
   "version": "${version}",
-  "name": "HardcodeTextPatcher",
+  "name": "HardcodePatcher",
   "description": "Fixed the hard coded local string problem in some mods.",
   "authors": [
-    "FengMing, teddyxlandlee","TexTrue, LocalizedCNMC"
+    "FengMing, teddyxlandlee","TexTrue, LocalizedMC"
   ],
   "contact": {
-    "homepage": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric",
-    "sources": "https://github.com/LocalizedCNMC/HardcodeTextPatcher-Fabric"
+    "homepage": "https://github.com/LocalizedMC/HardcodeTextPatcher-Fabric",
+    "sources": "https://github.com/LocalizedMC/HardcodeTextPatcher-Fabric"
   },
   "license": "GPLv3.0",
-  "icon": "icon.png",
+  "icon": "assets/hardcodepatcher/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.localmc.tools.hardcodepatcher.HardcodePatcher"
+      "org.localmc.tools.hardcodepatcher.HardcodePatcherMod"
     ]
   },
   "mixins": [
     "hardcodepatcher.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.6",
+    "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "1.18.x",
+    "minecraft": ">=1.18",
     "java": ">=17"
   }
 }

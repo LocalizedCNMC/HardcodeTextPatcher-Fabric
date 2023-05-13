@@ -88,7 +88,7 @@ The format of the Module File is roughly as follows:
   {
     "target_class": {
       "name": "me.modid.item.relics",
-      "mapping": "SRG",
+      "mapping": "Intermediaty",
       "stack_depth": 3
     },
     "key": "Dragon Relic",

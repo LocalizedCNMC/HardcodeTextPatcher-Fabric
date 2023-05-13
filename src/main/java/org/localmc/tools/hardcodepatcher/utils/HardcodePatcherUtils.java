@@ -1,7 +1,13 @@
-package org.localmc.tools.hardcodepatcher;
+package org.localmc.tools.hardcodepatcher.utils;
 
+import org.localmc.tools.hardcodepatcher.HardcodePatcherMod;
+import org.localmc.tools.hardcodepatcher.config.HardcodePatcherConfig;
+import org.localmc.tools.hardcodepatcher.config.HardcodePatcherPatch;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HardcodePatcherUtils {
@@ -48,11 +54,30 @@ public class HardcodePatcherUtils {
     }
 
     private static int min(int one, int two, int three) {
-        return (one = one < two ? one : two) < three ? one : three;
+        return (one = Math.min(one, two)) < three ? one : three;
     }
 
     public static float getSimilarityRatio(String source, String target) {
         int max = Math.max(source.length(), target.length());
         return 1 - (float) compare(source, target) / max;
+    }
+
+    public static void loadConfig() {
+        try {
+            HardcodePatcherConfig.readConfig();
+            List<String> mods = HardcodePatcherConfig.getMods();
+            for (String mod : mods) {
+                HardcodePatcherPatch vpp = new HardcodePatcherPatch(mod + ".json");
+                try {
+                    vpp.read();
+                    HardcodePatcherMod.vpps.add(vpp);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            HardcodePatcherMod.LOGGER.error("Failed to load config: ", e);
+            throw new RuntimeException(e);
+        }
     }
 }

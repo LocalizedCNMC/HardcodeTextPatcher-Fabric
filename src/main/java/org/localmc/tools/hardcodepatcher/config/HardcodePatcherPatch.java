@@ -3,9 +3,9 @@ package org.localmc.tools.hardcodepatcher.config;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import org.localmc.tools.hardcodepatcher.HardcodePatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcherMod;
 import net.minecraft.client.resource.language.I18n;
-import org.localmc.tools.hardcodepatcher.HardcodePatcherUtils;
+import org.localmc.tools.hardcodepatcher.utils.HardcodePatcherUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,12 +24,12 @@ public class HardcodePatcherPatch {
 
     public HardcodePatcherPatch(String patchFile) {
         this.pname = patchFile;
-        HardcodePatcher.LOGGER.info("Load Module " + patchFile);
-        Path p = HardcodePatcher.configPath.resolve(patchFile);
+        HardcodePatcherMod.LOGGER.info("Load Module " + patchFile);
+        Path p = HardcodePatcherMod.configPath.resolve(patchFile);
         try {
             Files.createDirectories(p.getParent());
         } catch (IOException e) {
-            HardcodePatcher.LOGGER.error("Failed to create {}", p.getParent(), e);
+            HardcodePatcherMod.LOGGER.error("Failed to create {}", p.getParent(), e);
             throw new RuntimeException(e);
         }
         this.patchFile = p;
@@ -88,7 +88,7 @@ public class HardcodePatcherPatch {
             }
 
             final TargetClassInfo targetClassInfo = info.getTargetClassInfo();
-            if (stackTrace == null || targetClassInfo.getName().isEmpty() || targetClassInfo.getStackDepth() <= 0 || matchStack(targetClassInfo.getName(), stackTrace)) {
+            if (stackTrace == null || targetClassInfo.getName().isEmpty() || targetClassInfo.getStackDepth() <= 0 || matchStack(targetClassInfo.getName(), targetClassInfo.getMethod(), stackTrace)) {
                 return patchText(info.getValue(), info.getKey(), text, isSemimatch);
             }
 
@@ -102,17 +102,18 @@ public class HardcodePatcherPatch {
         return null;
     }
 
-    private boolean matchStack(String str, StackTraceElement[] stack) {
-        String s = str.toLowerCase();
+    private boolean matchStack(String className, String methodName, StackTraceElement[] stack) {
         int min = HardcodePatcherConfig.getOptimize().getStackMin();
         int max = HardcodePatcherConfig.getOptimize().getStackMax();
         stack = Arrays.copyOfRange(stack, min == -1 ? 0 : min, max == -1 ? stack.length : max);
         for (StackTraceElement ste : stack) {
-            if (s.startsWith("#")) {
-                return ste.getClassName().endsWith(s);
-            } else if (s.startsWith("@")) {
-                return ste.getClassName().startsWith(s);
-            } else return s.equals(ste.getClassName());
+            if (className.startsWith("#") && ste.getClassName().endsWith(className.substring(1))) {
+                return methodName.equals("") || methodName.equals(ste.getMethodName());
+            } else if (className.startsWith("@") && ste.getClassName().startsWith(className.substring(1))) {
+                return methodName.equals("") || methodName.equals(ste.getMethodName());
+            } else if (className.equals(ste.getClassName())) {
+                return methodName.equals("") || methodName.equals(ste.getMethodName());
+            }
         }
         return false;
     }
@@ -120,7 +121,6 @@ public class HardcodePatcherPatch {
     private String patchText(String value, String key, String text, boolean isSemimatch) {
         boolean isMarked = HardcodePatcherConfig.getDebugMode().getTestMode();
         boolean isSimilarity = isMarked && HardcodePatcherUtils.getSimilarityRatio(text, key) >= 0.5;
-        System.out.println("Utils.getSimilarityRatio(text, key) = " + HardcodePatcherUtils.getSimilarityRatio(text, key));
         if (isSemimatch && !value.startsWith("@@")) {
             String i18nValue = I18n.translate(value.replace("@@", "@").substring(1));
             if (isMarked) i18nValue = "§a[REPLACE MARKED]§f" + i18nValue;

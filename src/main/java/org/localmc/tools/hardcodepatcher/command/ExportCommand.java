@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
-import org.localmc.tools.hardcodepatcher.HardcodePatcher;
+import org.localmc.tools.hardcodepatcher.HardcodePatcherMod;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
-import org.localmc.tools.hardcodepatcher.HardcodePatcherUtils;
+import org.localmc.tools.hardcodepatcher.utils.HardcodePatcherUtils;
 import org.localmc.tools.hardcodepatcher.config.HardcodePatcherConfig;
 
 import java.io.BufferedWriter;
@@ -35,7 +35,7 @@ public class ExportCommand implements Command<ServerCommandSource> {
         try {
             BufferedWriter bw = new BufferedWriter(
                     new FileWriter(
-                            FabricLoader.getInstance().getGameDir().resolve(HardcodePatcher.patchFileName).toFile(),
+                            FabricLoader.getInstance().getGameDir().resolve(HardcodePatcherMod.patchFileName).toFile(),
                             StandardCharsets.UTF_8));
             bw.write(json);
             bw.flush();
@@ -44,7 +44,7 @@ public class ExportCommand implements Command<ServerCommandSource> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.tips.success" + HardcodePatcher.patchFileName), true);
+        context.getSource().sendFeedback(new TranslatableText("commands.hardcodepatcher.export.tips.success" + HardcodePatcherMod.patchFileName), true);
         return 0;
     }
 }
