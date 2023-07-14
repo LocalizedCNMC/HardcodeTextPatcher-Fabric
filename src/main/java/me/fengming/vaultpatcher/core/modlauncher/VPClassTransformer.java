@@ -1,6 +1,5 @@
-package me.fengming.vaultpatcher.core;
+package me.fengming.vaultpatcher.core.modlauncher;
 
-import cpw.mods.modlauncher.api.ITransformationService;
 import cpw.mods.modlauncher.api.ITransformer;
 import cpw.mods.modlauncher.api.ITransformerVotingContext;
 import cpw.mods.modlauncher.api.TransformerVoteResult;
@@ -9,13 +8,11 @@ import me.fengming.vaultpatcher.VaultPatcher;
 import me.fengming.vaultpatcher.config.DebugMode;
 import me.fengming.vaultpatcher.config.TranslationInfo;
 import me.fengming.vaultpatcher.config.VaultPatcherConfig;
-import me.fengming.vaultpatcher.config.VaultPatcherPatch;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.tree.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 public class VPClassTransformer implements ITransformer<ClassNode> {

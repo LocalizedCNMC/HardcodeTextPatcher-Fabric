@@ -5,7 +5,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class DebugMode {
     private boolean isEnable = false;

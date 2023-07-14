@@ -5,7 +5,6 @@ import me.fengming.vaultpatcher.config.DebugMode;
 import me.fengming.vaultpatcher.config.TranslationInfo;
 import me.fengming.vaultpatcher.config.VaultPatcherConfig;
 import me.fengming.vaultpatcher.config.VaultPatcherPatch;
-import org.objectweb.asm.tree.ClassNode;
 
 import java.util.*;
 
