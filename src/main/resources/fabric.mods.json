@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "vaultpatcher",
+  "version": "${version}",
+  "name": "VaultPatcher",
+  "description": "Fixed the hard coded local string problem in some mods.",
+  "authors": [
+    "FengMing, teddyxlandlee","TexTrue, LocalizedMC"
+  ],
+  "contact": {
+    "homepage": "https://github.com/LocalizedMC/HardcodePatcher",
+    "sources": "https://github.com/LocalizedMC/HardcodePatcher"
+  },
+  "license": "GPLv3.0",
+  "icon": "assets/vaultpatcher/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "me.fengming.vaultpatcher.core.fabricloader.VPFabricLoaderMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": "*",
+    "fabric": "*",
+    "minecraft": ">=1.17",
+    "java": ">=17"
+  }
+}

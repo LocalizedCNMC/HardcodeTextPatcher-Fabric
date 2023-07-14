@@ -1,9 +1,7 @@
 package me.fengming.vaultpatcher;
 
-import cpw.mods.modlauncher.api.ITransformer;
 import me.fengming.vaultpatcher.config.DebugMode;
 import me.fengming.vaultpatcher.config.TranslationInfo;
-import me.fengming.vaultpatcher.config.VaultPatcherConfig;
 import me.fengming.vaultpatcher.config.VaultPatcherPatch;
 
 import java.util.*;
@@ -14,17 +12,6 @@ public class Utils {
 
     public static Iterator<TranslationInfo> getIterator() {
         return translationInfos.iterator();
-    }
-
-    public static List<ITransformer.Target> addTargetClasses() {
-        List<ITransformer.Target> list = new ArrayList<>();
-        VaultPatcherConfig.getClasses().forEach(s -> list.add(ITransformer.Target.targetClass(s.replace(".", "/"))));
-        for (VaultPatcherPatch vpp : vpps) {
-            for (TranslationInfo translationInfo : vpp.getTranslationInfoList()) {
-                list.add(ITransformer.Target.targetClass(translationInfo.getTargetClassInfo().getName().replace(".", "/")));
-            }
-        }
-        return list;
     }
 
     public static void outputDebugIndo(String s, String m, String ret, String c, DebugMode debug) {

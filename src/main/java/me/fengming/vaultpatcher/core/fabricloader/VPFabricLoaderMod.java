@@ -6,7 +6,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.nio.file.Path;
 
-public class VPFabricLoader implements ClientModInitializer {
+public class VPFabricLoaderMod implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         VaultPatcher.LOGGER.warn("[VaultPatcher] Warning! You are in ASM mode!");
